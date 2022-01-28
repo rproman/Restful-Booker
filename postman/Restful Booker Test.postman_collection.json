@@ -47,12 +47,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://restful-booker.herokuapp.com/ping",
-							"protocol": "https",
+							"raw": "{{base_url}}/ping",
 							"host": [
-								"restful-booker",
-								"herokuapp",
-								"com"
+								"{{base_url}}"
 							],
 							"path": [
 								"ping"
@@ -167,12 +164,9 @@
 							}
 						},
 						"url": {
-							"raw": "https://restful-booker.herokuapp.com/auth",
-							"protocol": "https",
+							"raw": "{{base_url}}/auth",
 							"host": [
-								"restful-booker",
-								"herokuapp",
-								"com"
+								"{{base_url}}"
 							],
 							"path": [
 								"auth"
@@ -309,7 +303,7 @@
 							"});\r",
 							"\r",
 							"// JSON schema validation\r",
-							"const schema = JSON.parse(pm.collectionVariables.get(\"BOOKING_SCHEMA\"));\r",
+							"const schema = JSON.parse(pm.collectionVariables.get(\"BOOKING_JSON_SCHEMA\"));\r",
 							"\r",
 							"/*\r",
 							"const schema = {\r",
@@ -512,12 +506,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/booking",
+					"raw": "{{create_booking_json_url}}",
 					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"booking"
+						"{{create_booking_json_url}}"
 					]
 				},
 				"description": "Sends a create booking request using JSON format. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Booking-CreateBooking)."
@@ -592,6 +583,495 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"bookingid\": 34,\n    \"booking\": {\n        \"firstname\": \"Eric\",\n        \"lastname\": \"Walsh\",\n        \"totalprice\": 551,\n        \"depositpaid\": true,\n        \"bookingdates\": {\n            \"checkin\": \"2021-07-06\",\n            \"checkout\": \"2022-07-12\"\n        },\n        \"additionalneeds\": \"circuit\"\n    }\n}"
+				},
+				{
+					"name": "Create Booking (Mock) - JSON",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\" : \"{{firstname}}\",\r\n    \"lastname\" : \"{{lastname}}\",\r\n    \"totalprice\" : {{totalprice}},\r\n    \"depositpaid\" : {{depositpaid}},\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"{{checkin}}\",\r\n        \"checkout\" : \"{{checkout}}\"\r\n    },\r\n    \"additionalneeds\" : \"{{additionalneeds}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/mock/json/booking",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mock",
+								"json",
+								"booking"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "194"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"c2-xAofGaLoTm6ReXI8SVntrHcN7QA\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 19 Jan 2022 09:51:55 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"bookingid\": 34,\n    \"booking\": {\n        \"firstname\": \"Eric\",\n        \"lastname\": \"Walsh\",\n        \"totalprice\": 551,\n        \"depositpaid\": true,\n        \"bookingdates\": {\n            \"checkin\": \"2021-07-06\",\n            \"checkout\": \"2022-07-12\"\n        },\n        \"additionalneeds\": \"circuit\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Booking - XML",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"#TEST: Create Booking - XML: Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//let jsonData = '';\r",
+							"\r",
+							"pm.test(\"#TEST: Create Booking - XML: XML response data validation\", () => {\r",
+							"    try {\r",
+							"        /*\r",
+							"        pm.expect(pm.response.text()).to.not.eql('');\r",
+							"        jsonData = pm.response.json();\r",
+							"        */\r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.withBody;\r",
+							"        \r",
+							"        console.log(pm.response.text());\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"XML response data validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"//const cheerio = require('cheerio');\r",
+							"const $ = cheerio.load(pm.response.text(), {\r",
+							"    ignoreWhitespace: true,\r",
+							"    xmlMode: true\r",
+							"    });\r",
+							"\r",
+							"\r",
+							"// Render XML\r",
+							"console.log($.xml());\r",
+							"\r",
+							"// JSON schema validation\r",
+							"var jsonData = xml2Json($.xml());\r",
+							"\r",
+							"console.log(\"xml2JSON: \" + JSON.stringify(jsonData));\r",
+							"\r",
+							"const schema = JSON.parse(pm.collectionVariables.get(\"BOOKING_XML2JSON_SCHEMA\"));\r",
+							"\r",
+							"// XML -> JSON schema validation. Use this since there is not direct way to validate XML schema in postman\r",
+							"pm.test(\"#TEST: Create Booking - XML: XML to JSON response schema validation\", () => {\r",
+							"    try {\r",
+							"        //tv4.validate(jsonData, schema);\r",
+							"        let Ajv = require('ajv');\r",
+							"        ajv = new Ajv({logger: console, allErrors: true});\r",
+							"        pm.expect(ajv.validate(schema, jsonData), JSON.stringify(ajv.errors)).to.be.true;\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"XML to JSON schema validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"#TEST: Create Booking - XML: Booking ID validation\", function () {\r",
+							"    try {\r",
+							"\r",
+							"        // Get <created-booking> node\r",
+							"        //let booking = $('created-booking');\r",
+							"        let bookingid = $(\"bookingid\");\r",
+							"\r",
+							"        pm.expect(bookingid.text()).to.be.not.empty;\r",
+							"\r",
+							"        pm.collectionVariables.set(\"bookingid\", bookingid.text());\r",
+							"        console.log(\"bookingid: \" + bookingid.text());\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Booking ID validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"#TEST: Create Booking - XML: First Name validation\", function () {\r",
+							"    try {\r",
+							"        let firstname = $(\"firstname\");\r",
+							"        console.log(\"firstname: \" + firstname.text());\r",
+							"\r",
+							"        pm.expect(firstname.text()).to.be.eql(pm.collectionVariables.get(\"firstname\"));\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"First Name validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Create Booking - XML: Last Name validation\", function () {\r",
+							"    try {\r",
+							"        let lastname = $(\"lastname\");\r",
+							"        console.log(\"lastname: \" + lastname.text());\r",
+							"\r",
+							"        pm.expect(lastname.text()).to.be.eql(pm.collectionVariables.get(\"lastname\"));\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Last Name validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Create Booking - XML: Total Price validation\", function () {\r",
+							"    try {\r",
+							"        let totalprice = $(\"totalprice\");\r",
+							"        console.log(\"totalprice: \" + totalprice.text());\r",
+							"\r",
+							"        pm.expect(totalprice.text()).to.be.eql(pm.collectionVariables.get(\"totalprice\"));\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Total Price validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Create Booking - XML: Deposit Paid validation\", function () {\r",
+							"    const depositpaidVal = pm.collectionVariables.get(\"depositpaid\");\r",
+							"    try {\r",
+							"        //var boolVal = JSON.parse(depositpaid);\r",
+							"        var boolVal = depositpaidVal == \"true\";\r",
+							"        console.log(\"collectionVariables depositpaid: \" + depositpaidVal);\r",
+							"        console.log(\"depositpaid boolVal: \" + boolVal)\r",
+							"  \r",
+							"        let depositpaid = $(\"depositpaid\");\r",
+							"        console.log(\"depositpaid: \" + depositpaid.text());\r",
+							"\r",
+							"        pm.expect(depositpaid.text()).to.be.eql(pm.collectionVariables.get(\"depositpaid\"));\r",
+							"        //pm.expect(depositpaid.text()).to.be.eql(boolVal);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Deposit Paid validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Create Booking - XML: Checkin validation\", function () {\r",
+							"    try {\r",
+							"        let checkin = $(\"checkin\");\r",
+							"        console.log(\"checkin: \" + checkin.text());\r",
+							"\r",
+							"        pm.expect(checkin.text()).to.be.eql(pm.collectionVariables.get(\"checkin\"));\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Checkin validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Create Booking - XML: Checkout validation\", function () {\r",
+							"    try {\r",
+							"        let checkout = $(\"checkout\");\r",
+							"        console.log(\"checkout: \" + checkout.text());\r",
+							"\r",
+							"        pm.expect(checkout.text()).to.be.eql(pm.collectionVariables.get(\"checkout\"));\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Checkout validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Create Booking - XML: Additional needs validation\", function () {\r",
+							"    try {\r",
+							"        let additionalneeds = $(\"additionalneeds\");\r",
+							"        console.log(\"additionalneeds: \" + additionalneeds.text());\r",
+							"\r",
+							"        pm.expect(additionalneeds.text()).to.be.eql(pm.collectionVariables.get(\"additionalneeds\"));\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Additional needs validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.collectionVariables.set(\"firstname\", pm.variables.replaceIn('{{$randomFirstName}}'));\r",
+							"console.log(\"firstname: \" + pm.collectionVariables.get(\"firstname\"));\r",
+							"\r",
+							"pm.collectionVariables.set(\"lastname\", pm.variables.replaceIn('{{$randomLastName}}'));\r",
+							"console.log(\"lastname: \" + pm.collectionVariables.get(\"lastname\"));\r",
+							"\r",
+							"pm.collectionVariables.set(\"totalprice\", pm.variables.replaceIn('{{$randomInt}}'));\r",
+							"console.log(\"totalprice: \" + pm.collectionVariables.get(\"totalprice\"));\r",
+							"\r",
+							"var boolVal = pm.variables.replaceIn('{{$randomBoolean}}');\r",
+							"console.log(\"boolVal: \" + boolVal);\r",
+							"\r",
+							"pm.collectionVariables.set(\"depositpaid\", boolVal );\r",
+							"console.log(\"depositpaid: \" + pm.collectionVariables.get(\"depositpaid\"));\r",
+							"\r",
+							"/*\r",
+							"pm.collectionVariables.set(\"checkin\", pm.variables.replaceIn('{{$randomDatePast}}'));\r",
+							"console.log(\"checkin: \" + pm.collectionVariables.get(\"checkin\"));\r",
+							"*/\r",
+							"/*\r",
+							"pm.collectionVariables.set(\"checkin\", formatDate(pm.variables.replaceIn('{{$randomDatePast}}')));\r",
+							"*/\r",
+							"pm.collectionVariables.set(\"checkin\", util.formatDate(pm.variables.replaceIn('{{$randomDatePast}}')));\r",
+							"console.log(\"checkin: \" + pm.collectionVariables.get(\"checkin\"));\r",
+							"\r",
+							"\r",
+							"pm.collectionVariables.set(\"checkout\", util.formatDate(pm.variables.replaceIn('{{$randomDateFuture}}')));\r",
+							"console.log(\"checkout: \" + pm.collectionVariables.get(\"checkout\"));\r",
+							"\r",
+							"pm.collectionVariables.set(\"additionalneeds\", pm.variables.replaceIn('{{$randomNoun}}'));\r",
+							"console.log(\"additionalneeds: \" + pm.collectionVariables.get(\"additionalneeds\"));\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<booking>\r\n    <firstname>{{firstname}}</firstname>\r\n    <lastname>{{lastname}}</lastname>\r\n    <totalprice>{{totalprice}}</totalprice>\r\n    <depositpaid>{{depositpaid}}</depositpaid>\r\n    <bookingdates>\r\n        <checkin>{{checkin}}</checkin>\r\n        <checkout>{{checkout}}</checkout>\r\n    </bookingdates>\r\n    <additionalneeds>{{additionalneeds}}</additionalneeds>\r\n</booking>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{create_booking_xml_url}}",
+					"host": [
+						"{{create_booking_xml_url}}"
+					]
+				},
+				"description": "Sends a create booking request using JSON format. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Booking-CreateBooking)."
+			},
+			"response": [
+				{
+					"name": "Create Booking - XML",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "text/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<booking>\r\n    <firstname>{{firstname}}</firstname>\r\n    <lastname>{{lastname}}</lastname>\r\n    <totalprice>{{totalprice}}</totalprice>\r\n    <depositpaid>{{depositpaid}}</depositpaid>\r\n    <bookingdates>\r\n        <checkin>{{checkin}}</checkin>\r\n        <checkout>{{checkout}}</checkout>\r\n    </bookingdates>\r\n    <additionalneeds>{{additionalneeds}}</additionalneeds>\r\n</booking>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/booking",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"booking"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "456"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"1c8-aqPe7NmxJDHrQ1bots77HVQBgnk\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 26 Jan 2022 14:17:12 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "<?xml version='1.0'?>\n<created-booking>\n    <bookingid>28</bookingid>\n    <booking>\n        <firstname>Branson</firstname>\n        <lastname>Bauch</lastname>\n        <totalprice>888</totalprice>\n        <depositpaid>true</depositpaid>\n        <bookingdates>\n            <checkin>2021-04-02</checkin>\n            <checkout>2022-02-22</checkout>\n        </bookingdates>\n        <additionalneeds>application</additionalneeds>\n    </booking>\n</created-booking>"
+				},
+				{
+					"name": "Create Booking (Mock) - XML",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "text/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<booking>\r\n    <firstname>Branson</firstname>\r\n    <lastname>Bauch</lastname>\r\n    <totalprice>888</totalprice>\r\n    <depositpaid>false</depositpaid>\r\n    <bookingdates>\r\n        <checkin>2021-04-02</checkin>\r\n        <checkout>2022-02-22</checkout>\r\n    </bookingdates>\r\n    <additionalneeds>minibar,pool</additionalneeds>\r\n</booking>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/mock/xml/booking",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mock",
+								"xml",
+								"booking"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "456"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"1c8-aqPe7NmxJDHrQ1bots77HVQBgnk\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 26 Jan 2022 14:17:12 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "<?xml version='1.0'?>\n<created-booking>\n    <bookingid>28</bookingid>\n    <booking>\n        <firstname>Branson</firstname>\n        <lastname>Bauch</lastname>\n        <totalprice>888</totalprice>\n        <depositpaid>false</depositpaid>\n        <bookingdates>\n            <checkin>2021-04-02</checkin>\n            <checkout>2022-02-22</checkout>\n        </bookingdates>\n        <additionalneeds>minibar,pool</additionalneeds>\n    </booking>\n</created-booking>"
 				}
 			]
 		}
@@ -681,7 +1161,7 @@
 			"value": ""
 		},
 		{
-			"key": "BOOKING_SCHEMA",
+			"key": "BOOKING_JSON_SCHEMA",
 			"value": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"bookingid\": {\n      \"type\": \"integer\"\n    },\n    \"booking\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"firstname\": {\n          \"type\": \"string\"\n        },\n        \"lastname\": {\n          \"type\": \"string\"\n        },\n        \"totalprice\": {\n          \"type\": \"integer\"\n        },\n        \"depositpaid\": {\n          \"type\": \"boolean\"\n        },\n        \"bookingdates\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"checkin\": {\n              \"type\": \"string\"\n            },\n            \"checkout\": {\n              \"type\": \"string\"\n            }\n          },\n          \"required\": [\n            \"checkin\",\n            \"checkout\"\n          ]\n        },\n        \"additionalneeds\": {\n          \"type\": \"string\"\n        }\n      },\n      \"required\": [\n        \"firstname\",\n        \"lastname\",\n        \"totalprice\",\n        \"depositpaid\",\n        \"bookingdates\",\n        \"additionalneeds\"\n      ]\n    }\n  },\n  \"required\": [\n    \"bookingid\",\n    \"booking\"\n  ]\n}"
 		},
 		{
@@ -692,6 +1172,11 @@
 		{
 			"key": "utilityclass",
 			"value": ""
+		},
+		{
+			"key": "BOOKING_XML2JSON_SCHEMA",
+			"value": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"created-booking\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"bookingid\": {\n          \"type\": \"string\"\n        },\n        \"booking\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"firstname\": {\n              \"type\": \"string\"\n            },\n            \"lastname\": {\n              \"type\": \"string\"\n            },\n            \"totalprice\": {\n              \"type\": \"string\"\n            },\n            \"depositpaid\": {\n              \"type\": \"string\"\n            },\n            \"bookingdates\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"checkin\": {\n                  \"type\": \"string\"\n                },\n                \"checkout\": {\n                  \"type\": \"string\"\n                }\n              },\n              \"required\": [\n                \"checkin\",\n                \"checkout\"\n              ]\n            },\n            \"additionalneeds\": {\n              \"type\": \"string\"\n            }\n          },\n          \"required\": [\n            \"firstname\",\n            \"lastname\",\n            \"totalprice\",\n            \"depositpaid\",\n            \"bookingdates\",\n            \"additionalneeds\"\n          ]\n        }\n      },\n      \"required\": [\n        \"bookingid\",\n        \"booking\"\n      ]\n    }\n  },\n  \"required\": [\n    \"created-booking\"\n  ]\n}",
+			"type": "string"
 		}
 	]
 }
