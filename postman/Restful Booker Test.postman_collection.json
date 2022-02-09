@@ -705,7 +705,7 @@
 							"\r",
 							"const schema = JSON.parse(pm.collectionVariables.get(\"BOOKING_XML2JSON_SCHEMA\"));\r",
 							"\r",
-							"// XML -> JSON schema validation. Use this since there is not direct way to validate XML schema in postman\r",
+							"// XML -> JSON schema validation. Use this since there is no direct way to validate XML schema in postman\r",
 							"pm.test(\"#TEST: Create Booking - XML: XML to JSON response schema validation\", () => {\r",
 							"    try {\r",
 							"        //tv4.validate(jsonData, schema);\r",
@@ -1074,6 +1074,474 @@
 					"body": "<?xml version='1.0'?>\n<created-booking>\n    <bookingid>28</bookingid>\n    <booking>\n        <firstname>Branson</firstname>\n        <lastname>Bauch</lastname>\n        <totalprice>888</totalprice>\n        <depositpaid>false</depositpaid>\n        <bookingdates>\n            <checkin>2021-04-02</checkin>\n            <checkout>2022-02-22</checkout>\n        </bookingdates>\n        <additionalneeds>minibar,pool</additionalneeds>\n    </booking>\n</created-booking>"
 				}
 			]
+		},
+		{
+			"name": "Create Booking - URL Encoded",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.collectionVariables.set(\"firstname\", pm.variables.replaceIn('{{$randomFirstName}}'));\r",
+							"console.log(\"firstname: \" + pm.collectionVariables.get(\"firstname\"));\r",
+							"\r",
+							"pm.collectionVariables.set(\"lastname\", pm.variables.replaceIn('{{$randomLastName}}'));\r",
+							"console.log(\"lastname: \" + pm.collectionVariables.get(\"lastname\"));\r",
+							"\r",
+							"pm.collectionVariables.set(\"totalprice\", pm.variables.replaceIn('{{$randomInt}}'));\r",
+							"console.log(\"totalprice: \" + pm.collectionVariables.get(\"totalprice\"));\r",
+							"\r",
+							"var boolVal = pm.variables.replaceIn('{{$randomBoolean}}');\r",
+							"console.log(\"boolVal: \" + boolVal);\r",
+							"\r",
+							"pm.collectionVariables.set(\"depositpaid\", boolVal );\r",
+							"console.log(\"depositpaid: \" + pm.collectionVariables.get(\"depositpaid\"));\r",
+							"\r",
+							"/*\r",
+							"pm.collectionVariables.set(\"checkin\", pm.variables.replaceIn('{{$randomDatePast}}'));\r",
+							"console.log(\"checkin: \" + pm.collectionVariables.get(\"checkin\"));\r",
+							"*/\r",
+							"/*\r",
+							"pm.collectionVariables.set(\"checkin\", formatDate(pm.variables.replaceIn('{{$randomDatePast}}')));\r",
+							"*/\r",
+							"pm.collectionVariables.set(\"checkin\", util.formatDate(pm.variables.replaceIn('{{$randomDatePast}}')));\r",
+							"console.log(\"checkin: \" + pm.collectionVariables.get(\"checkin\"));\r",
+							"\r",
+							"\r",
+							"pm.collectionVariables.set(\"checkout\", util.formatDate(pm.variables.replaceIn('{{$randomDateFuture}}')));\r",
+							"console.log(\"checkout: \" + pm.collectionVariables.get(\"checkout\"));\r",
+							"\r",
+							"pm.collectionVariables.set(\"additionalneeds\", pm.variables.replaceIn('{{$randomNoun}}'));\r",
+							"console.log(\"additionalneeds: \" + pm.collectionVariables.get(\"additionalneeds\"));\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"#TEST: Create Booking - URL Encoded: Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"#TEST: Create Booking - URL Encoded: response data validation\", () => {\r",
+							"    try {\r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.withBody;\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"URL Encoded response data validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"console.log(\"Create Booking URL Encoded Response Body: \" + pm.response.text());\r",
+							"//console.log(\"Decoded URI Component: \" + decodeURIComponent(pm.response.text()));\r",
+							"\r",
+							"querystring = require(\"querystring\");\r",
+							"let jsonData = querystring.parse(pm.response.text());\r",
+							"console.log(jsonData);\r",
+							"//console.log(JSON.stringify(params));\r",
+							"\r",
+							"\r",
+							"// JSON schema validation\r",
+							"const schema = JSON.parse(pm.collectionVariables.get(\"BOOKING_URLENCODED_SCHEMA\"));\r",
+							"\r",
+							"pm.test(\"#TEST: Create Booking - URL Encoded: response schema validation\", () => {\r",
+							"    try {\r",
+							"        //tv4.validate(jsonData, schema);\r",
+							"        let Ajv = require('ajv');\r",
+							"        ajv = new Ajv({logger: console, allErrors: true});\r",
+							"        pm.expect(ajv.validate(schema, jsonData), JSON.stringify(ajv.errors)).to.be.true;\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"URL Encoded to JSON schema validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Create Booking - URL Encoded: Booking ID validation\", function () {\r",
+							"    try {\r",
+							"        pm.expect(jsonData).to.have.property(\"bookingid\");\r",
+							"        pm.collectionVariables.set(\"bookingid\", jsonData.bookingid);\r",
+							"        console.log(\"bookingid: \" + jsonData.bookingid);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Booking ID validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Create Booking - URL Encoded: First Name validation\", function () {\r",
+							"    const firstname = pm.collectionVariables.get(\"firstname\");\r",
+							"    try {\r",
+							"        pm.expect(jsonData).to.have.property(\"booking[firstname]\", firstname);\r",
+							"        console.log(\"firstname: \" + jsonData[\"booking[firstname]\"]);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"First Name validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"#TEST: Create Booking - URL Encoded: Last Name validation\", function () {\r",
+							"    const lastname = pm.collectionVariables.get(\"lastname\");\r",
+							"    try {\r",
+							"        pm.expect(jsonData).to.have.property(\"booking[lastname]\", lastname);\r",
+							"        console.log(\"lastname: \" + jsonData[\"booking[lastname]\"]);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Last Name validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Create Booking - URL Encoded: Total Price validation\", function () {\r",
+							"    const totalprice = pm.collectionVariables.get(\"totalprice\");\r",
+							"    try {\r",
+							"        pm.expect(jsonData).to.have.property(\"booking[totalprice]\", totalprice);\r",
+							"        console.log(\"totalprice: \" + jsonData[\"booking[totalprice]\"]);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Total Price validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Create Booking - URL Encoded: Deposit Paid validation\", function () {\r",
+							"    const depositpaid = pm.collectionVariables.get(\"depositpaid\");\r",
+							"    try {\r",
+							"        //var boolVal = JSON.parse(depositpaid);\r",
+							"        var boolVal = depositpaid == \"true\";\r",
+							"        console.log(\"collectionVariables depositpaid: \" + depositpaid)\r",
+							"        console.log(\"depositpaid boolVal: \" + boolVal)\r",
+							"        pm.expect(jsonData).to.have.property(\"booking[depositpaid]\", depositpaid);\r",
+							"        console.log(\"depositpaid: \" + jsonData[\"booking[depositpaid]\"]);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Deposit Paid validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Create Booking - URL Encoded: Additional Needs validation\", function () {\r",
+							"    const additionalneeds = pm.collectionVariables.get(\"additionalneeds\");\r",
+							"    try {\r",
+							"        pm.expect(jsonData).to.have.property(\"booking[additionalneeds]\", additionalneeds);\r",
+							"        console.log(\"additionalneeds: \" + jsonData[\"booking[additionalneeds]\"]);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Additional Needs validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Create Booking - URL Encoded: Checkin Date validation\", function () {\r",
+							"    const checkin = pm.collectionVariables.get(\"checkin\");\r",
+							"    try {\r",
+							"        pm.expect(jsonData).to.have.property(\"booking[bookingdates][checkin]\", checkin);\r",
+							"        console.log(\"checkin: \" + jsonData[\"booking[bookingdates][checkin]\"]);\r",
+							"        console.log(\"collectionVariables checkin: \" + checkin);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Checkin Date validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Create Booking - URL Encoded: Checkout Date validation\", function () {\r",
+							"    const checkout = pm.collectionVariables.get(\"checkout\");\r",
+							"    try {\r",
+							"        pm.expect(jsonData).to.have.property(\"booking[bookingdates][checkout]\", checkout);\r",
+							"        console.log(\"checkout: \" + jsonData[\"booking[bookingdates][checkout]\"]);\r",
+							"        console.log(\"collectionVariables checkout: \" + checkout);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Checkout Date validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "firstname",
+							"value": "{{firstname}}",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "{{lastname}}",
+							"type": "text"
+						},
+						{
+							"key": "totalprice",
+							"value": "{{totalprice}}",
+							"type": "text"
+						},
+						{
+							"key": "depositpaid",
+							"value": "{{depositpaid}}",
+							"type": "text"
+						},
+						{
+							"key": "bookingdates[checkin]",
+							"value": "{{checkin}}",
+							"type": "text"
+						},
+						{
+							"key": "bookingdates[checkout]",
+							"value": "{{checkout}}",
+							"type": "text"
+						},
+						{
+							"key": "additionalneeds",
+							"value": "{{additionalneeds}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{create_booking_urlencoded_url}}",
+					"host": [
+						"{{create_booking_urlencoded_url}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Booking - URL Encoded",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "firstname",
+									"value": "{{firstname}}",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "{{lastname}}",
+									"type": "text"
+								},
+								{
+									"key": "totalprice",
+									"value": "{{totalprice}}",
+									"type": "text"
+								},
+								{
+									"key": "depositpaid",
+									"value": "{{depositpaid}}",
+									"type": "text"
+								},
+								{
+									"key": "bookingdates[checkin]",
+									"value": "{{checkin}}",
+									"type": "text"
+								},
+								{
+									"key": "bookingdates[checkout]",
+									"value": "{{checkout}}",
+									"type": "text"
+								},
+								{
+									"key": "additionalneeds",
+									"value": "{{additionalneeds}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/booking",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"booking"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "268"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"10c-w4quAaVzb99XmfESv+fmP22mLkw\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 08 Feb 2022 18:27:47 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "bookingid=24&booking%5Bfirstname%5D=Brayan&booking%5Blastname%5D=Klein&booking%5Btotalprice%5D=511&booking%5Bdepositpaid%5D=true&booking%5Bbookingdates%5D%5Bcheckin%5D=2021-08-29&booking%5Bbookingdates%5D%5Bcheckout%5D=2022-09-25&booking%5Badditionalneeds%5D=microchip"
+				},
+				{
+					"name": "Create Booking (Mock) - URL Encoded Copy",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "firstname",
+									"value": "{{firstname}}",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "{{lastname}}",
+									"type": "text"
+								},
+								{
+									"key": "totalprice",
+									"value": "{{totalprice}}",
+									"type": "text"
+								},
+								{
+									"key": "depositpaid",
+									"value": "{{depositpaid}}",
+									"type": "text"
+								},
+								{
+									"key": "bookingdates[checkin]",
+									"value": "{{checkin}}",
+									"type": "text"
+								},
+								{
+									"key": "bookingdates[checkout]",
+									"value": "{{checkout}}",
+									"type": "text"
+								},
+								{
+									"key": "additionalneeds",
+									"value": "{{additionalneeds}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/mock/urlencoded/booking",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mock",
+								"urlencoded",
+								"booking"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "268"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"10c-w4quAaVzb99XmfESv+fmP22mLkw\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 08 Feb 2022 18:27:47 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "bookingid=24&booking%5Bfirstname%5D=Brayan&booking%5Blastname%5D=Klein&booking%5Btotalprice%5D=511&booking%5Bdepositpaid%5D=true&booking%5Bbookingdates%5D%5Bcheckin%5D=2021-08-29&booking%5Bbookingdates%5D%5Bcheckout%5D=2022-09-25&booking%5Badditionalneeds%5D=microchip"
+				}
+			]
 		}
 	],
 	"event": [
@@ -1165,6 +1633,16 @@
 			"value": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"bookingid\": {\n      \"type\": \"integer\"\n    },\n    \"booking\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"firstname\": {\n          \"type\": \"string\"\n        },\n        \"lastname\": {\n          \"type\": \"string\"\n        },\n        \"totalprice\": {\n          \"type\": \"integer\"\n        },\n        \"depositpaid\": {\n          \"type\": \"boolean\"\n        },\n        \"bookingdates\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"checkin\": {\n              \"type\": \"string\"\n            },\n            \"checkout\": {\n              \"type\": \"string\"\n            }\n          },\n          \"required\": [\n            \"checkin\",\n            \"checkout\"\n          ]\n        },\n        \"additionalneeds\": {\n          \"type\": \"string\"\n        }\n      },\n      \"required\": [\n        \"firstname\",\n        \"lastname\",\n        \"totalprice\",\n        \"depositpaid\",\n        \"bookingdates\",\n        \"additionalneeds\"\n      ]\n    }\n  },\n  \"required\": [\n    \"bookingid\",\n    \"booking\"\n  ]\n}"
 		},
 		{
+			"key": "BOOKING_XML2JSON_SCHEMA",
+			"value": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"created-booking\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"bookingid\": {\n          \"type\": \"string\"\n        },\n        \"booking\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"firstname\": {\n              \"type\": \"string\"\n            },\n            \"lastname\": {\n              \"type\": \"string\"\n            },\n            \"totalprice\": {\n              \"type\": \"string\"\n            },\n            \"depositpaid\": {\n              \"type\": \"string\"\n            },\n            \"bookingdates\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"checkin\": {\n                  \"type\": \"string\"\n                },\n                \"checkout\": {\n                  \"type\": \"string\"\n                }\n              },\n              \"required\": [\n                \"checkin\",\n                \"checkout\"\n              ]\n            },\n            \"additionalneeds\": {\n              \"type\": \"string\"\n            }\n          },\n          \"required\": [\n            \"firstname\",\n            \"lastname\",\n            \"totalprice\",\n            \"depositpaid\",\n            \"bookingdates\",\n            \"additionalneeds\"\n          ]\n        }\n      },\n      \"required\": [\n        \"bookingid\",\n        \"booking\"\n      ]\n    }\n  },\n  \"required\": [\n    \"created-booking\"\n  ]\n}",
+			"type": "string"
+		},
+		{
+			"key": "BOOKING_URLENCODED_SCHEMA",
+			"value": "{\n   \"type\": \"object\",\n  \"properties\": {\n    \"bookingid\": {\n      \"type\": \"string\"\n    },\n    \"booking[firstname]\": {\n      \"type\": \"string\"\n    },\n    \"booking[lastname]\": {\n      \"type\": \"string\"\n    },\n    \"booking[totalprice]\": {\n      \"type\": \"string\"\n    },\n    \"booking[depositpaid]\": {\n      \"type\": \"string\"\n    },\n    \"booking[bookingdates][checkin]\": {\n      \"type\": \"string\"\n    },\n    \"booking[bookingdates][checkout]\": {\n      \"type\": \"string\"\n    },\n    \"booking[additionalneeds]\": {\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"bookingid\",\n    \"booking[firstname]\",\n    \"booking[lastname]\",\n    \"booking[totalprice]\",\n    \"booking[depositpaid]\",\n    \"booking[bookingdates][checkin]\",\n    \"booking[bookingdates][checkout]\",\n    \"booking[additionalneeds]\"\n  ]\n}",
+			"type": "string"
+		},
+		{
 			"key": "base_url",
 			"value": "https://restful-booker.herokuapp.com",
 			"type": "string"
@@ -1172,11 +1650,6 @@
 		{
 			"key": "utilityclass",
 			"value": ""
-		},
-		{
-			"key": "BOOKING_XML2JSON_SCHEMA",
-			"value": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"created-booking\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"bookingid\": {\n          \"type\": \"string\"\n        },\n        \"booking\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"firstname\": {\n              \"type\": \"string\"\n            },\n            \"lastname\": {\n              \"type\": \"string\"\n            },\n            \"totalprice\": {\n              \"type\": \"string\"\n            },\n            \"depositpaid\": {\n              \"type\": \"string\"\n            },\n            \"bookingdates\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"checkin\": {\n                  \"type\": \"string\"\n                },\n                \"checkout\": {\n                  \"type\": \"string\"\n                }\n              },\n              \"required\": [\n                \"checkin\",\n                \"checkout\"\n              ]\n            },\n            \"additionalneeds\": {\n              \"type\": \"string\"\n            }\n          },\n          \"required\": [\n            \"firstname\",\n            \"lastname\",\n            \"totalprice\",\n            \"depositpaid\",\n            \"bookingdates\",\n            \"additionalneeds\"\n          ]\n        }\n      },\n      \"required\": [\n        \"bookingid\",\n        \"booking\"\n      ]\n    }\n  },\n  \"required\": [\n    \"created-booking\"\n  ]\n}",
-			"type": "string"
 		}
 	]
 }
