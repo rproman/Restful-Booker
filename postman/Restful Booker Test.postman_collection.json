@@ -283,7 +283,7 @@
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
-							"let jsonData = '';\r",
+							"let jsonData = {};\r",
 							"\r",
 							"pm.test(\"#TEST: Create Booking - JSON: JSON response data validation\", () => {\r",
 							"    try {\r",
@@ -418,7 +418,7 @@
 							"    const depositpaid = pm.collectionVariables.get(\"depositpaid\");\r",
 							"    try {\r",
 							"        //var boolVal = JSON.parse(depositpaid);\r",
-							"        var boolVal = depositpaid == \"true\";\r",
+							"        var boolVal = depositpaid === \"true\";\r",
 							"        console.log(\"collectionVariables depositpaid: \" + depositpaid)\r",
 							"        console.log(\"depositpaid boolVal: \" + boolVal)\r",
 							"        pm.expect(jsonData.booking).to.have.property(\"depositpaid\", boolVal);\r",
@@ -782,7 +782,7 @@
 							"    const depositpaidVal = pm.collectionVariables.get(\"depositpaid\");\r",
 							"    try {\r",
 							"        //var boolVal = JSON.parse(depositpaid);\r",
-							"        var boolVal = depositpaidVal == \"true\";\r",
+							"        var boolVal = depositpaidVal === \"true\";\r",
 							"        console.log(\"collectionVariables depositpaid: \" + depositpaidVal);\r",
 							"        console.log(\"depositpaid boolVal: \" + boolVal)\r",
 							"  \r",
@@ -1218,7 +1218,7 @@
 							"    const depositpaid = pm.collectionVariables.get(\"depositpaid\");\r",
 							"    try {\r",
 							"        //var boolVal = JSON.parse(depositpaid);\r",
-							"        var boolVal = depositpaid == \"true\";\r",
+							"        var boolVal = depositpaid === \"true\";\r",
 							"        console.log(\"collectionVariables depositpaid: \" + depositpaid)\r",
 							"        console.log(\"depositpaid boolVal: \" + boolVal)\r",
 							"        pm.expect(jsonData).to.have.property(\"booking[depositpaid]\", depositpaid);\r",
@@ -1542,6 +1542,1071 @@
 					"body": "bookingid=24&booking%5Bfirstname%5D=Brayan&booking%5Blastname%5D=Klein&booking%5Btotalprice%5D=511&booking%5Bdepositpaid%5D=true&booking%5Bbookingdates%5D%5Bcheckin%5D=2021-08-29&booking%5Bbookingdates%5D%5Bcheckout%5D=2022-09-25&booking%5Badditionalneeds%5D=microchip"
 				}
 			]
+		},
+		{
+			"name": "Get Booking - JSON",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"#TEST: Get Booking Request: Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsondata = {};\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - JSON: JSON response data validation\", () => {\r",
+							"    try {\r",
+							"        pm.response.to.be.ok.\r",
+							"            and.to.be.withBody.\r",
+							"            and.to.be.json;\r",
+							"\r",
+							"\r",
+							"        jsonData = pm.response.json();\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"JSON response data validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// JSON schema validation\r",
+							"const schema = JSON.parse(pm.collectionVariables.get(\"GET_BOOKING_JSON_SCHEMA\"));\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - JSON: JSON response schema validation\", () => {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - JSON: First Name validation\", function () {\r",
+							"    const firstname = pm.collectionVariables.get(\"firstname\");\r",
+							"    try {\r",
+							"        pm.expect(jsonData).to.have.property(\"firstname\", firstname);\r",
+							"        console.log(\"firstname: \" + jsonData.firstname);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"First Name validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - JSON: Last Name validation\", function () {\r",
+							"    const lastname = pm.collectionVariables.get(\"lastname\");\r",
+							"    try {\r",
+							"        pm.expect(jsonData).to.have.property(\"lastname\", lastname);\r",
+							"        console.log(\"lastname: \" + jsonData.lastname);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Last Name validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - JSON: Total Price validation\", function () {\r",
+							"    const totalprice = Number.parseInt(pm.collectionVariables.get(\"totalprice\"));\r",
+							"    try {\r",
+							"        pm.expect(jsonData).to.have.property(\"totalprice\", totalprice);\r",
+							"        console.log(\"totalprice: \" + jsonData.totalprice);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Total Price validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - JSON: Deposit Paid validation\", function () {\r",
+							"    const depositpaid = pm.collectionVariables.get(\"depositpaid\");\r",
+							"    try {\r",
+							"        //var boolVal = JSON.parse(depositpaid);\r",
+							"        var boolVal = depositpaid == \"true\";\r",
+							"        console.log(\"collectionVariables depositpaid: \" + depositpaid)\r",
+							"        console.log(\"depositpaid boolVal: \" + boolVal)\r",
+							"        pm.expect(jsonData).to.have.property(\"depositpaid\", boolVal);\r",
+							"  \r",
+							"/*\r",
+							"        // alternative way to validate\r",
+							"        pm.expect(jsonData).has.ownProperty(\"depositpaid\");\r",
+							"        pm.expect(jsonData.depositpaid.toString()).eql(depositpaid)\r",
+							"*/\r",
+							"        console.log(\"depositpaid: \" + jsonData.depositpaid);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Deposit Paid validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - JSON: Additional Needs validation\", function () {\r",
+							"    const additionalneeds = pm.collectionVariables.get(\"additionalneeds\");\r",
+							"    try {\r",
+							"        pm.expect(jsonData).to.have.property(\"additionalneeds\", additionalneeds);\r",
+							"        console.log(\"additionalneeds: \" + jsonData.additionalneeds);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Additional Needs validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - JSON: Checkin Date validation\", function () {\r",
+							"    const checkin = pm.collectionVariables.get(\"checkin\");\r",
+							"    try {\r",
+							"        pm.expect(jsonData.bookingdates).to.have.property(\"checkin\", checkin);\r",
+							"        console.log(\"checkin: \" + jsonData.bookingdates.checkin);\r",
+							"        console.log(\"collectionVariables checkin: \" + checkin);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Checkin Date validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - JSON: Checkout Date validation\", function () {\r",
+							"    const checkout = pm.collectionVariables.get(\"checkout\");\r",
+							"    try {\r",
+							"        pm.expect(jsonData.bookingdates).to.have.property(\"checkout\", checkout);\r",
+							"        console.log(\"checkout: \" + jsonData.bookingdates.checkout);\r",
+							"        console.log(\"collectionVariables checkout: \" + checkout);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Checkout Date validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//pm.variables.set(\"id\", pm.collectionVariables.get(\"bookingid\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{get_booking_json_url}}/:id",
+					"host": [
+						"{{get_booking_json_url}}"
+					],
+					"path": [
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				},
+				"description": "Sends a ping request to the Restfulbooker API to determine if the service is up. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Ping-Ping)."
+			},
+			"response": [
+				{
+					"name": "Get Booking - JSON",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{get_booking_json_url}}/:id",
+							"host": [
+								"{{get_booking_json_url}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{bookingid}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "172"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"ac-cADWL4ZnGnhGBYUUO2+atwmrptA\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 10 Feb 2022 20:16:18 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"firstname\": \"Miguel\",\n    \"lastname\": \"Rohan\",\n    \"totalprice\": 206,\n    \"depositpaid\": true,\n    \"bookingdates\": {\n        \"checkin\": \"2021-04-17\",\n        \"checkout\": \"2022-10-15\"\n    },\n    \"additionalneeds\": \"hard drive\"\n}"
+				},
+				{
+					"name": "Get Booking (Mock) - JSON",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/mock/json/booking/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mock",
+								"json",
+								"booking",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{bookingid}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "173"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"ad-ntXtI/QtZ2GCckcWHlHWLXBfv90\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 10 Feb 2022 19:59:55 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"firstname\": \"Christob\",\n    \"lastname\": \"Brown\",\n    \"totalprice\": 111,\n    \"depositpaid\": true,\n    \"bookingdates\": {\n        \"checkin\": \"2018-01-01\",\n        \"checkout\": \"2019-01-01\"\n    },\n    \"additionalneeds\": \"Breakfast\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Booking IDs - JSON",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"#TEST: Get Booking IDs Request: Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsondata = {};\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking IDs - JSON: JSON response data validation\", () => {\r",
+							"    try {\r",
+							"        /*\r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.withBody;\r",
+							"        pm.response.to.be.json;\r",
+							"        */\r",
+							"\r",
+							"        pm.response.to.be.ok.\r",
+							"            and.to.be.withBody.\r",
+							"            and.to.be.json;\r",
+							"\r",
+							"\r",
+							"        jsonData = pm.response.json();\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"JSON response data validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// JSON schema validation\r",
+							"const schema = JSON.parse(pm.collectionVariables.get(\"GET_BOOKINGIDS_JSON_SCHEMA\"));\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking IDs - JSON: JSON response schema validation\", () => {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							"\r",
+							"// validate if last booking ID created is present in list.\r",
+							"pm.test(\"#TEST: Get Booking IDs - JSON: JSON Booking ID validation\", () => {\r",
+							"    const bookingid = Number.parseInt(pm.collectionVariables.get(\"bookingid\"));\r",
+							"    let found = false;\r",
+							"\r",
+							"    // alternative validation checking each property, instead of performing schema validation\r",
+							"    jsonData.forEach(booking => {\r",
+							"        pm.expect(booking).to.have.key(\"bookingid\");\r",
+							"        if (booking.bookingid === bookingid) {\r",
+							"            found = true;\r",
+							"        }\r",
+							"    });\r",
+							"\r",
+							"    /*\r",
+							"    // alternative way to iterate array of bookindid until one is found to exist in the returned list\r",
+							"    for(let i=0; i<jsonData.length && !found; i++) {\r",
+							"        if (jsonData[i].bookingid === bookingid) {\r",
+							"            found = true;\r",
+							"        } \r",
+							"        console.log(\"Booking ID index = \" + i);\r",
+							"    }\r",
+							"    */\r",
+							"\r",
+							"    console.log(\"Booking ID [\" + bookingid +\"] found = \" + found);\r",
+							"\r",
+							"    pm.expect(found, \"Booking ID \" + bookingid + \" not found in returned list!\").to.be.true;\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{get_booking_ids_url}}",
+					"host": [
+						"{{get_booking_ids_url}}"
+					]
+				},
+				"description": "Sends a ping request to the Restfulbooker API to determine if the service is up. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Ping-Ping)."
+			},
+			"response": [
+				{
+					"name": "Get Booking IDs - JSON",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/booking",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"booking"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "757"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"2f5-iGVwSYDvvlDJ5a87FSlF9mGGChE\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 10 Feb 2022 16:03:57 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"bookingid\": 12\n    },\n    {\n        \"bookingid\": 23\n    },\n    {\n        \"bookingid\": 39\n    },\n    {\n        \"bookingid\": 24\n    },\n    {\n        \"bookingid\": 5\n    }\n]"
+				},
+				{
+					"name": "Get Booking IDs (Mock) - JSON",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/mock/json/booking",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mock",
+								"json",
+								"booking"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "757"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"2f5-iGVwSYDvvlDJ5a87FSlF9mGGChE\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 10 Feb 2022 16:03:57 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"bookingid\": 13\n    },\n    {\n        \"bookingid\": 1\n    },\n    {\n        \"bookingid\": 8\n    },\n    {\n        \"bookingid\": 10\n    },\n    {\n        \"bookingid\": 5\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Get Booking IDs with Filter by Name  - JSON",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"#TEST: Get Booking IDs Filter by Name Request: Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsondata = {};\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking IDs Filter by Name - JSON: JSON response data validation\", () => {\r",
+							"    try {\r",
+							"        /*\r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.withBody;\r",
+							"        pm.response.to.be.json;\r",
+							"        */\r",
+							"\r",
+							"        pm.response.to.be.ok.\r",
+							"            and.to.be.withBody.\r",
+							"            and.to.be.json;\r",
+							"\r",
+							"\r",
+							"        jsonData = pm.response.json();\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"JSON response data validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// JSON schema validation\r",
+							"const schema = JSON.parse(pm.collectionVariables.get(\"GET_BOOKINGIDS_JSON_SCHEMA\"));\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking IDs Filter by Name - JSON: JSON response schema validation\", () => {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// validate if last booking ID created is present in list.\r",
+							"pm.test(\"#TEST: Get Booking IDs Filter by Name - JSON: Booking ID validation\", () => {\r",
+							"    if (jsonData.length === 0) {\r",
+							"        console.log(\"#TEST: Get Booking IDs Filter by Name - List of Booking empty\");\r",
+							"    }\r",
+							"\r",
+							"    jsonData.forEach(booking => {\r",
+							"        pm.expect(booking).to.have.key(\"bookingid\");\r",
+							"\r",
+							"        console.log(\"get_booking_json_url: \" + pm.variables.replaceIn('{{get_booking_json_url}}'));\r",
+							"\r",
+							"        // send a request to get booking details\r",
+							"        const getBookingReq = {\r",
+							"            url: pm.variables.replaceIn('{{get_booking_json_url}}') + \"/\" + booking.bookingid,\r",
+							"            //\"url\": \"https://restful-booker.herokuapp.com/booking/\" + booking.bookingid,\r",
+							"            method: \"GET\",\r",
+							"            header: {\r",
+							"                Accept: \"application/json\"\r",
+							"            }\r",
+							"        };\r",
+							"\r",
+							"        console.log(\"getBookingReq: \" + getBookingReq);\r",
+							"\r",
+							"        pm.sendRequest(\r",
+							"            getBookingReq,\r",
+							"            (error, response) => {\r",
+							"                pm.test(\"#TEST: Get Booking IDs Filter by Name - JSON: First and Last Name validation\", () => {\r",
+							"                    if (error) {\r",
+							"                        console.error(error);\r",
+							"                    }\r",
+							"\r",
+							"                    pm.response.to.have.status(200);\r",
+							"\r",
+							"\r",
+							"                    //validate first name and last name of each booking id\r",
+							"                    let jsonData2 = response.json();\r",
+							"                    const firstname = pm.collectionVariables.get(\"firstname\");\r",
+							"                    try {\r",
+							"                        pm.expect(jsonData2).to.have.property(\"firstname\", firstname);\r",
+							"                        console.log(\"firstname: \" + jsonData2.firstname);\r",
+							"                    }\r",
+							"                    catch (e) {\r",
+							"                        console.error(\"First Name validation failed! \" + e);\r",
+							"                        throw e;\r",
+							"                    }\r",
+							"\r",
+							"                    const lastname = pm.collectionVariables.get(\"lastname\");\r",
+							"                    try {\r",
+							"                        pm.expect(jsonData2).to.have.property(\"lastname\", lastname);\r",
+							"                        console.log(\"lastname: \" + jsonData2.lastname);\r",
+							"                    }\r",
+							"                    catch (e) {\r",
+							"                        console.error(\"Last Name validation failed! \" + e);\r",
+							"                        throw e;\r",
+							"                    }\r",
+							"                })\r",
+							"            } // callback function\r",
+							"        );\r",
+							"    });\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{get_booking_ids_url}}?firstname={{firstname}}&lastname={{lastname}}",
+					"host": [
+						"{{get_booking_ids_url}}"
+					],
+					"query": [
+						{
+							"key": "firstname",
+							"value": "{{firstname}}"
+						},
+						{
+							"key": "lastname",
+							"value": "{{lastname}}"
+						}
+					]
+				},
+				"description": "Sends a ping request to the Restfulbooker API to determine if the service is up. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Ping-Ping)."
+			},
+			"response": [
+				{
+					"name": "Get Booking IDs with Filter by Name- JSON",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/booking?firstname={{firstname}}&lastname={{lastname}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"booking"
+							],
+							"query": [
+								{
+									"key": "firstname",
+									"value": "{{firstname}}"
+								},
+								{
+									"key": "lastname",
+									"value": "{{lastname}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "757"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"2f5-iGVwSYDvvlDJ5a87FSlF9mGGChE\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 10 Feb 2022 16:03:57 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"bookingid\": 12\n    }\n]"
+				},
+				{
+					"name": "Get Booking IDs Filter by Name (Mock) - JSON",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/mock/json/booking?firstname={{firstname}}&lastname={{lastname}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mock",
+								"json",
+								"booking"
+							],
+							"query": [
+								{
+									"key": "firstname",
+									"value": "{{firstname}}"
+								},
+								{
+									"key": "lastname",
+									"value": "{{lastname}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "757"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"2f5-iGVwSYDvvlDJ5a87FSlF9mGGChE\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 10 Feb 2022 16:03:57 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"bookingid\": 13\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Get Booking IDs with Filter by Date  - JSON",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"#TEST: Get Booking IDs Filter by Date Request: Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsondata = {};\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking IDs Filter by Date - JSON: JSON response data validation\", () => {\r",
+							"    try {\r",
+							"        /*\r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.withBody;\r",
+							"        pm.response.to.be.json;\r",
+							"        */\r",
+							"\r",
+							"        pm.response.to.be.ok.\r",
+							"            and.to.be.withBody.\r",
+							"            and.to.be.json;\r",
+							"\r",
+							"\r",
+							"        jsonData = pm.response.json();\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"JSON response data validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// JSON schema validation\r",
+							"const schema = JSON.parse(pm.collectionVariables.get(\"GET_BOOKINGIDS_JSON_SCHEMA\"));\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking IDs Filter by Date - JSON: JSON response schema validation\", () => {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking IDs Filter by Date - JSON: Booking ID validation\", () => {\r",
+							"    if (jsonData.length === 0) {\r",
+							"        console.log(\"#TEST: Get Booking IDs Filter by Name - List of Booking empty\");\r",
+							"    }\r",
+							"\r",
+							"    jsonData.forEach(booking => {\r",
+							"        pm.expect(booking).to.have.key(\"bookingid\");\r",
+							"\r",
+							"        //console.log(\"get_booking_json_url: \" + pm.variables.replaceIn('{{get_booking_json_url}}'));\r",
+							"\r",
+							"        // send a request to get booking details for each booking ID returned\r",
+							"        const getBookingReq = {\r",
+							"            url: pm.variables.replaceIn('{{get_booking_json_url}}') + \"/\" + booking.bookingid,\r",
+							"            //\"url\": \"https://restful-booker.herokuapp.com/booking/\" + booking.bookingid,\r",
+							"            method: \"GET\",\r",
+							"            header: {\r",
+							"                Accept: \"application/json\"\r",
+							"            }\r",
+							"        };\r",
+							"\r",
+							"        pm.sendRequest(\r",
+							"            getBookingReq,\r",
+							"            (error, response) => {\r",
+							"                pm.test(\"#TEST: Get Booking IDs Filter by Date - JSON: Checkin and Checkout Date validation\", () => {\r",
+							"                    if (error) {\r",
+							"                        console.error(error);\r",
+							"                    }\r",
+							"\r",
+							"                    pm.response.to.have.status(200);\r",
+							"\r",
+							"                    //let _ = require(\"lodash\");\r",
+							"                    let moment = require(\"moment\");\r",
+							"\r",
+							"                    //validate checkin and checkout date of each booking id\r",
+							"                    let jsonData2 = response.json();\r",
+							"                    const checkin = pm.collectionVariables.get(\"checkin\");\r",
+							"                    const checkout = pm.collectionVariables.get(\"checkout\");\r",
+							"                    console.log(\"Filter by checkin=\" + checkin + \" and checkout=\" + checkout);\r",
+							"\r",
+							"                    pm.expect(jsonData2).haveOwnProperty(\"bookingdates\");\r",
+							"                    try {\r",
+							"                        pm.expect(jsonData2.bookingdates).to.have.property(\"checkin\");\r",
+							"                        console.log(\"Returned checkin: \" + jsonData2.bookingdates.checkin);\r",
+							"\r",
+							"                        //pm.expect(_.gte(jsonData2.bookingdates.checkin, checkin), \"Returned checkin date \" + jsonData2.bookingdates.checkin + \" should be >= \" + checkin);\r",
+							"\r",
+							"                        pm.expect(moment(jsonData2.bookingdates.checkin, \"YYYY-MM-DD\").isSameOrAfter(moment(checkin, \"YYYY-MM-DD\")), \r",
+							"                            \"Returned checkin date \" + jsonData2.bookingdates.checkin + \" should be >= \" + checkin).to.be.true;\r",
+							"                    }\r",
+							"                    catch (e) {\r",
+							"                        console.error(\"Checkin Date validation failed! \" + e);\r",
+							"                        throw e;\r",
+							"                    }\r",
+							"\r",
+							"                    try {\r",
+							"                        pm.expect(jsonData2.bookingdates).to.have.property(\"checkout\");\r",
+							"                        console.log(\"Returned checkout: \" + jsonData2.bookingdates.checkout);\r",
+							"                        //pm.expect(_.lte(jsonData2.bookingdates.checkout, checkout), \"Returned checkout date \" + jsonData2.bookingdates.checkout + \" should be <= \" + checkout);\r",
+							"                        pm.expect(moment(jsonData2.bookingdates.checkout, \"YYYY-MM-DD\").isSameOrBefore(moment(checkout, \"YYYY-MM-DD\")), \r",
+							"                            \"Returned checkout date \" + jsonData2.bookingdates.checkout + \" should be <= \" + checkout).to.be.true;\r",
+							"                    }\r",
+							"                    catch (e) {\r",
+							"                        console.error(\"Checkout Date validation failed! \" + e);\r",
+							"                        throw e;\r",
+							"                    }\r",
+							"                })\r",
+							"            } // callback function\r",
+							"        );\r",
+							"    });\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{get_booking_ids_url}}?checkin={{checkin}}&checkout={{checkout}}",
+					"host": [
+						"{{get_booking_ids_url}}"
+					],
+					"query": [
+						{
+							"key": "checkin",
+							"value": "{{checkin}}"
+						},
+						{
+							"key": "checkout",
+							"value": "{{checkout}}"
+						}
+					]
+				},
+				"description": "Sends a ping request to the Restfulbooker API to determine if the service is up. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Ping-Ping)."
+			},
+			"response": [
+				{
+					"name": "Get Booking IDs with Filter by Date- JSON",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/booking?checkin={{checkin}}&checkout={{checkout}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"booking"
+							],
+							"query": [
+								{
+									"key": "checkin",
+									"value": "{{checkin}}"
+								},
+								{
+									"key": "checkout",
+									"value": "{{checkout}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "757"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"2f5-iGVwSYDvvlDJ5a87FSlF9mGGChE\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 10 Feb 2022 16:03:57 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"bookingid\": 12\n    }\n]"
+				},
+				{
+					"name": "Get Booking IDs Filter by Date (Mock) - JSON",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/mock/json/booking?checkin={{checkin}}&checkout={{checkout}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mock",
+								"json",
+								"booking"
+							],
+							"query": [
+								{
+									"key": "checkin",
+									"value": "{{checkin}}"
+								},
+								{
+									"key": "checkout",
+									"value": "{{checkout}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "757"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"2f5-iGVwSYDvvlDJ5a87FSlF9mGGChE\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 10 Feb 2022 16:03:57 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"bookingid\": 13\n    }\n]"
+				}
+			]
 		}
 	],
 	"event": [
@@ -1593,6 +2658,11 @@
 	],
 	"variable": [
 		{
+			"key": "base_url",
+			"value": "https://restful-booker.herokuapp.com",
+			"type": "string"
+		},
+		{
 			"key": "token_key",
 			"value": ""
 		},
@@ -1643,8 +2713,13 @@
 			"type": "string"
 		},
 		{
-			"key": "base_url",
-			"value": "https://restful-booker.herokuapp.com",
+			"key": "GET_BOOKINGIDS_JSON_SCHEMA",
+			"value": "{\n    \"$schema\": \"http://json-schema.org/draft-07/schema\",\n    \"$id\": \"http://example.com/example.json\",\n    \"type\": \"array\",\n    \"uniqueItems\": true,\n    \"title\": \"The root schema\",\n    \"description\": \"The root schema comprises the entire JSON document.\",\n    \"default\": [],\n    \"examples\": [\n        [\n            {\n                \"bookingid\": 12\n            },\n            {\n                \"bookingid\": 23\n            }\n        ]\n    ],\n    \"additionalItems\": false,\n    \"items\": {\n        \"$id\": \"#/items\",\n        \"anyOf\": [\n            {\n                \"$id\": \"#/items/anyOf/0\",\n                \"type\": \"object\",\n                \"title\": \"The first anyOf schema\",\n                \"description\": \"A list of zero or more objects containing a single property of bookingid.\",\n                \"examples\": [\n                    {\n                        \"bookingid\": 12\n                    }\n                ],\n                \"required\": [\n                    \"bookingid\"\n                ],\n                \"properties\": {\n                    \"bookingid\": {\n                        \"$id\": \"#/items/anyOf/0/properties/bookingid\",\n                        \"type\": \"integer\",\n                        \"title\": \"The bookingid schema\",\n                        \"description\": \"bookingid property of type integer.\",\n                        \"examples\": [\n                            12\n                        ]\n                    }\n                },\n                \"additionalProperties\": false\n            }\n        ]\n    }\n}",
+			"type": "string"
+		},
+		{
+			"key": "GET_BOOKING_JSON_SCHEMA",
+			"value": "{\n    \"$schema\": \"http://json-schema.org/draft-07/schema\",\n    \"$id\": \"http://example.com/example.json\",\n    \"type\": \"object\",\n    \"title\": \"The root schema\",\n    \"description\": \"The root schema comprises the entire JSON document.\",\n    \"examples\": [\n        {\n            \"firstname\": \"Miguel\",\n            \"lastname\": \"Rohan\",\n            \"totalprice\": 206,\n            \"depositpaid\": true,\n            \"bookingdates\": {\n                \"checkin\": \"2021-04-17\",\n                \"checkout\": \"2022-10-15\"\n            },\n            \"additionalneeds\": \"hard drive\"\n        }\n    ],\n    \"required\": [\n        \"firstname\",\n        \"lastname\",\n        \"totalprice\",\n        \"depositpaid\",\n        \"bookingdates\"\n    ],\n    \"properties\": {\n        \"firstname\": {\n            \"$id\": \"#/properties/firstname\",\n            \"type\": \"string\",\n            \"title\": \"The firstname schema\",\n            \"description\": \"The first name used when booking was created.\",\n            \"default\": \"\",\n            \"examples\": [\n                \"Miguel\"\n            ]\n        },\n        \"lastname\": {\n            \"$id\": \"#/properties/lastname\",\n            \"type\": \"string\",\n            \"title\": \"The lastname schema\",\n            \"description\": \"The last name used when booking was created.\",\n            \"default\": \"\",\n            \"examples\": [\n                \"Rohan\"\n            ]\n        },\n        \"totalprice\": {\n            \"$id\": \"#/properties/totalprice\",\n            \"type\": \"integer\",\n            \"title\": \"The totalprice schema\",\n            \"description\": \"The total price used when booking was created.\",\n            \"default\": 0,\n            \"examples\": [\n                206\n            ]\n        },\n        \"depositpaid\": {\n            \"$id\": \"#/properties/depositpaid\",\n            \"type\": \"boolean\",\n            \"title\": \"The depositpaid schema\",\n            \"description\": \"The deposit paid indicator used when booking was created.\",\n            \"default\": false,\n            \"examples\": [\n                true\n            ]\n        },\n        \"bookingdates\": {\n            \"$id\": \"#/properties/bookingdates\",\n            \"type\": \"object\",\n            \"title\": \"The bookingdates schema\",\n            \"description\": \"Check in and check out dates used when booking was created.\",\n            \"default\": {},\n            \"examples\": [\n                {\n                    \"checkin\": \"2021-04-17\",\n                    \"checkout\": \"2022-10-15\"\n                }\n            ],\n            \"required\": [\n                \"checkin\",\n                \"checkout\"\n            ],\n            \"properties\": {\n                \"checkin\": {\n                    \"$id\": \"#/properties/bookingdates/properties/checkin\",\n                    \"type\": \"string\",\n                    \"title\": \"The checkin schema\",\n                    \"description\": \"Check in date in YYYY-MM-DD format when booking was created.\",\n                    \"default\": \"\",\n                    \"examples\": [\n                        \"2021-04-17\"\n                    ]\n                },\n                \"checkout\": {\n                    \"$id\": \"#/properties/bookingdates/properties/checkout\",\n                    \"type\": \"string\",\n                    \"title\": \"The checkout schema\",\n                    \"description\": \"Check out date in YYYY-MM-DD format when booking was created.\",\n                    \"default\": \"\",\n                    \"examples\": [\n                        \"2022-10-15\"\n                    ]\n                }\n            },\n            \"additionalProperties\": false\n        },\n        \"additionalneeds\": {\n            \"$id\": \"#/properties/additionalneeds\",\n            \"type\": \"string\",\n            \"title\": \"The additionalneeds schema\",\n            \"description\": \"An optional property to indicate additional needs when booking was created.\",\n            \"default\": \"\",\n            \"examples\": [\n                \"hard drive\"\n            ]\n        }\n    },\n    \"additionalProperties\": false\n}",
 			"type": "string"
 		},
 		{
