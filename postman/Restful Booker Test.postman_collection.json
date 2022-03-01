@@ -130,7 +130,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"password123\"\r\n}",
+					"raw": "{\r\n    \"username\" : \"{{username}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -150,7 +150,7 @@
 			},
 			"response": [
 				{
-					"name": "New Request",
+					"name": "Auth Request",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
@@ -527,7 +527,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstname\" : \"{{firstname}}\",\r\n    \"lastname\" : \"{{lastname}}\",\r\n    \"totalprice\" : {{totalprice}},\r\n    \"depositpaid\" : {{depositpaid}},\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"{{checkin}}\",\r\n        \"checkout\" : \"{{checkout}}\"\r\n    },\r\n    \"additionalneeds\" : \"{{additionalneeds}}\"\r\n}",
+							"raw": "{\r\n    \"firstname\" : \"Lula\",\r\n    \"lastname\" : \"Morissette\",\r\n    \"totalprice\" : 308,\r\n    \"depositpaid\" : false,\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"2021-04-19\",\r\n        \"checkout\" : \"2022-09-26\"\r\n    },\r\n    \"additionalneeds\" : \"sensor\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -566,23 +566,27 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "194"
+							"value": "199"
 						},
 						{
 							"key": "Etag",
-							"value": "W/\"c2-xAofGaLoTm6ReXI8SVntrHcN7QA\""
+							"value": "W/\"c7-NWl+1z3CXaSjSq/e8mwSBcPzEX4\""
 						},
 						{
 							"key": "Date",
-							"value": "Wed, 19 Jan 2022 09:51:55 GMT"
+							"value": "Thu, 24 Feb 2022 08:28:22 GMT"
 						},
 						{
 							"key": "Via",
 							"value": "1.1 vegur"
 						}
 					],
-					"cookie": [],
-					"body": "{\n    \"bookingid\": 34,\n    \"booking\": {\n        \"firstname\": \"Eric\",\n        \"lastname\": \"Walsh\",\n        \"totalprice\": 551,\n        \"depositpaid\": true,\n        \"bookingdates\": {\n            \"checkin\": \"2021-07-06\",\n            \"checkout\": \"2022-07-12\"\n        },\n        \"additionalneeds\": \"circuit\"\n    }\n}"
+					"cookie": [
+						{
+							"expires": "Invalid Date"
+						}
+					],
+					"body": "{\n    \"bookingid\": 25,\n    \"booking\": {\n        \"firstname\": \"Lula\",\n        \"lastname\": \"Morissette\",\n        \"totalprice\": 308,\n        \"depositpaid\": false,\n        \"bookingdates\": {\n            \"checkin\": \"2021-04-19\",\n            \"checkout\": \"2022-09-26\"\n        },\n        \"additionalneeds\": \"sensor\"\n    }\n}"
 				},
 				{
 					"name": "Create Booking (Mock) - JSON",
@@ -597,7 +601,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstname\" : \"{{firstname}}\",\r\n    \"lastname\" : \"{{lastname}}\",\r\n    \"totalprice\" : {{totalprice}},\r\n    \"depositpaid\" : {{depositpaid}},\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"{{checkin}}\",\r\n        \"checkout\" : \"{{checkout}}\"\r\n    },\r\n    \"additionalneeds\" : \"{{additionalneeds}}\"\r\n}",
+							"raw": "{\r\n    \"firstname\" : \"Eric\",\r\n    \"lastname\" : \"Walsh\",\r\n    \"totalprice\" : 551,\r\n    \"depositpaid\" : true,\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"2021-07-06\",\r\n        \"checkout\" : \"2022-07-12\"\r\n    },\r\n    \"additionalneeds\" : \"circuit\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -655,6 +659,654 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"bookingid\": 34,\n    \"booking\": {\n        \"firstname\": \"Eric\",\n        \"lastname\": \"Walsh\",\n        \"totalprice\": 551,\n        \"depositpaid\": true,\n        \"bookingdates\": {\n            \"checkin\": \"2021-07-06\",\n            \"checkout\": \"2022-07-12\"\n        },\n        \"additionalneeds\": \"circuit\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Booking - JSON",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"#TEST: Get Booking Request: Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsondata = {};\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - JSON: JSON response data validation\", () => {\r",
+							"    try {\r",
+							"        pm.response.to.be.ok.\r",
+							"            and.to.be.withBody.\r",
+							"            and.to.be.json;\r",
+							"\r",
+							"\r",
+							"        jsonData = pm.response.json();\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"JSON response data validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// JSON schema validation\r",
+							"const schema = JSON.parse(pm.collectionVariables.get(\"GET_BOOKING_JSON_SCHEMA\"));\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - JSON: JSON response schema validation\", () => {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - JSON: First Name validation\", function () {\r",
+							"    const firstname = pm.collectionVariables.get(\"firstname\");\r",
+							"    try {\r",
+							"        pm.expect(jsonData).to.have.property(\"firstname\", firstname);\r",
+							"        console.log(\"firstname: \" + jsonData.firstname);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"First Name validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - JSON: Last Name validation\", function () {\r",
+							"    const lastname = pm.collectionVariables.get(\"lastname\");\r",
+							"    try {\r",
+							"        pm.expect(jsonData).to.have.property(\"lastname\", lastname);\r",
+							"        console.log(\"lastname: \" + jsonData.lastname);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Last Name validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - JSON: Total Price validation\", function () {\r",
+							"    const totalprice = Number.parseInt(pm.collectionVariables.get(\"totalprice\"));\r",
+							"    try {\r",
+							"        pm.expect(jsonData).to.have.property(\"totalprice\", totalprice);\r",
+							"        console.log(\"totalprice: \" + jsonData.totalprice);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Total Price validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - JSON: Deposit Paid validation\", function () {\r",
+							"    const depositpaid = pm.collectionVariables.get(\"depositpaid\");\r",
+							"    try {\r",
+							"        //var boolVal = JSON.parse(depositpaid);\r",
+							"        var boolVal = depositpaid == \"true\";\r",
+							"        console.log(\"collectionVariables depositpaid: \" + depositpaid)\r",
+							"        console.log(\"depositpaid boolVal: \" + boolVal)\r",
+							"        pm.expect(jsonData).to.have.property(\"depositpaid\", boolVal);\r",
+							"  \r",
+							"/*\r",
+							"        // alternative way to validate\r",
+							"        pm.expect(jsonData).has.ownProperty(\"depositpaid\");\r",
+							"        pm.expect(jsonData.depositpaid.toString()).eql(depositpaid)\r",
+							"*/\r",
+							"        console.log(\"depositpaid: \" + jsonData.depositpaid);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Deposit Paid validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - JSON: Additional Needs validation\", function () {\r",
+							"    const additionalneeds = pm.collectionVariables.get(\"additionalneeds\");\r",
+							"    try {\r",
+							"        pm.expect(jsonData).to.have.property(\"additionalneeds\", additionalneeds);\r",
+							"        console.log(\"additionalneeds: \" + jsonData.additionalneeds);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Additional Needs validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - JSON: Checkin Date validation\", function () {\r",
+							"    const checkin = pm.collectionVariables.get(\"checkin\");\r",
+							"    try {\r",
+							"        pm.expect(jsonData.bookingdates).to.have.property(\"checkin\", checkin);\r",
+							"        console.log(\"checkin: \" + jsonData.bookingdates.checkin);\r",
+							"        console.log(\"collectionVariables checkin: \" + checkin);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Checkin Date validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - JSON: Checkout Date validation\", function () {\r",
+							"    const checkout = pm.collectionVariables.get(\"checkout\");\r",
+							"    try {\r",
+							"        pm.expect(jsonData.bookingdates).to.have.property(\"checkout\", checkout);\r",
+							"        console.log(\"checkout: \" + jsonData.bookingdates.checkout);\r",
+							"        console.log(\"collectionVariables checkout: \" + checkout);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Checkout Date validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{get_booking_json_url}}/:id",
+					"host": [
+						"{{get_booking_json_url}}"
+					],
+					"path": [
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{bookingid}}",
+							"description": "Booking ID"
+						}
+					]
+				},
+				"description": "Sends a get booking request to the Restfulbooker API to retrieve a booking record based on the booking ID. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Booking-GetBooking)."
+			},
+			"response": [
+				{
+					"name": "Get Booking - JSON",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/booking/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"booking",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{bookingid}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "172"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"ac-cADWL4ZnGnhGBYUUO2+atwmrptA\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 10 Feb 2022 20:16:18 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"firstname\": \"Miguel\",\n    \"lastname\": \"Rohan\",\n    \"totalprice\": 206,\n    \"depositpaid\": true,\n    \"bookingdates\": {\n        \"checkin\": \"2021-04-17\",\n        \"checkout\": \"2022-10-15\"\n    },\n    \"additionalneeds\": \"hard drive\"\n}"
+				},
+				{
+					"name": "Get Booking (Mock) - JSON",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/mock/json/booking/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mock",
+								"json",
+								"booking",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{bookingid}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "173"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"ad-ntXtI/QtZ2GCckcWHlHWLXBfv90\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 10 Feb 2022 19:59:55 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"firstname\": \"Christob\",\n    \"lastname\": \"Brown\",\n    \"totalprice\": 111,\n    \"depositpaid\": true,\n    \"bookingdates\": {\n        \"checkin\": \"2018-01-01\",\n        \"checkout\": \"2019-01-01\"\n    },\n    \"additionalneeds\": \"Breakfast\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Booking - Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"#TEST: Delete Booking - Success - Request: Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Delete Booking - Success - Request: Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Created\");\r",
+							"});\r",
+							"\r",
+							"// send a request to confirm that the booking record was successfully deleted.\r",
+							"const getBookingReq = {\r",
+							"    url: pm.variables.replaceIn('{{get_booking_json_url}}') + \"/\" + pm.collectionVariables.get(\"bookingid\"),\r",
+							"    //\"url\": \"https://restful-booker.herokuapp.com/booking/\" + booking.bookingid,\r",
+							"    method: \"GET\",\r",
+							"    header: {\r",
+							"        Accept: \"application/json\"\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"console.log(\"getBookingReq: \" + JSON.stringify(getBookingReq));\r",
+							"\r",
+							"pm.sendRequest(getBookingReq, (error, response) => { \r",
+							"        if (error) {\r",
+							"            console.error(error);\r",
+							"        }\r",
+							"\r",
+							"        console.log(\"response: \" + response);\r",
+							"\r",
+							"\r",
+							"        pm.test(\"#TEST: Delete Booking - Success - Request: Confirm Booking record has been deleted\", function () {\r",
+							"            pm.expect(error).to.equal(null);\r",
+							"            pm.expect(response).to.have.property('code', 404);\r",
+							"            pm.expect(response).to.have.property('status', 'Not Found');\r",
+							"        });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{delete_booking_success_url}}/:id",
+					"host": [
+						"{{delete_booking_success_url}}"
+					],
+					"path": [
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{bookingid}}",
+							"description": "Booking ID"
+						}
+					]
+				},
+				"description": "Sends a delete booking request to the Restfulbooker API to delete a booking record based on the booking ID. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Booking-DeleteBooking)."
+			},
+			"response": [
+				{
+					"name": "Delete Booking - Success",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/mock/del/success/booking/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mock",
+								"del",
+								"success",
+								"booking",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{bookingid}}",
+									"description": "Booking ID"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "7"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"7-rM9AyJuqT6iOan/xHh+AW+7K/T8\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Feb 2022 16:07:57 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "Created"
+				}
+			]
+		},
+		{
+			"name": "Delete Booking - Non Existent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"#TEST: Delete Booking - Non Existent - Request: Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});\r",
+							"\r",
+							"/*\r",
+							"pm.test(\"#TEST: Delete Booking - Non Existent - Request\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Created\");\r",
+							"});\r",
+							"*/\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{token_key}}",
+						"description": "Auth token as a cookie",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{delete_booking_fail_url}}/:id",
+					"host": [
+						"{{delete_booking_fail_url}}"
+					],
+					"path": [
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "123456789",
+							"description": "Dummy Booking ID"
+						}
+					]
+				},
+				"description": "Sends a delete booking request to the Restfulbooker API to delete a booking record based on the booking ID. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Booking-DeleteBooking)."
+			},
+			"response": [
+				{
+					"name": "Delete Booking - Non Existent",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/mock/del/fail/booking/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mock",
+								"del",
+								"fail",
+								"booking",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "123456789",
+									"description": "Dummy Booking ID"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "7"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"7-rM9AyJuqT6iOan/xHh+AW+7K/T8\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Feb 2022 16:07:57 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "Created"
 				}
 			]
 		},
@@ -918,7 +1570,7 @@
 						"{{create_booking_xml_url}}"
 					]
 				},
-				"description": "Sends a create booking request using JSON format. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Booking-CreateBooking)."
+				"description": "Sends a create booking request using XML format. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Booking-CreateBooking)."
 			},
 			"response": [
 				{
@@ -939,7 +1591,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "<booking>\r\n    <firstname>{{firstname}}</firstname>\r\n    <lastname>{{lastname}}</lastname>\r\n    <totalprice>{{totalprice}}</totalprice>\r\n    <depositpaid>{{depositpaid}}</depositpaid>\r\n    <bookingdates>\r\n        <checkin>{{checkin}}</checkin>\r\n        <checkout>{{checkout}}</checkout>\r\n    </bookingdates>\r\n    <additionalneeds>{{additionalneeds}}</additionalneeds>\r\n</booking>",
+							"raw": "<booking>\r\n    <firstname>Kim</firstname>\r\n    <lastname>Parker/lastname>\r\n    <totalprice>68</totalprice>\r\n    <depositpaid>true</depositpaid>\r\n    <bookingdates>\r\n        <checkin>2021-11-01</checkin>\r\n        <checkout>2022-11-13</checkout>\r\n    </bookingdates>\r\n    <additionalneeds>firewall</additionalneeds>\r\n</booking>",
 							"options": {
 								"raw": {
 									"language": "xml"
@@ -978,23 +1630,27 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "456"
+							"value": "449"
 						},
 						{
 							"key": "Etag",
-							"value": "W/\"1c8-aqPe7NmxJDHrQ1bots77HVQBgnk\""
+							"value": "W/\"1c1-0rwkvO98FqdAmIc2ZAer2gWnFQY\""
 						},
 						{
 							"key": "Date",
-							"value": "Wed, 26 Jan 2022 14:17:12 GMT"
+							"value": "Thu, 24 Feb 2022 08:37:59 GMT"
 						},
 						{
 							"key": "Via",
 							"value": "1.1 vegur"
 						}
 					],
-					"cookie": [],
-					"body": "<?xml version='1.0'?>\n<created-booking>\n    <bookingid>28</bookingid>\n    <booking>\n        <firstname>Branson</firstname>\n        <lastname>Bauch</lastname>\n        <totalprice>888</totalprice>\n        <depositpaid>true</depositpaid>\n        <bookingdates>\n            <checkin>2021-04-02</checkin>\n            <checkout>2022-02-22</checkout>\n        </bookingdates>\n        <additionalneeds>application</additionalneeds>\n    </booking>\n</created-booking>"
+					"cookie": [
+						{
+							"expires": "Invalid Date"
+						}
+					],
+					"body": "<?xml version='1.0'?>\n<created-booking>\n    <bookingid>60</bookingid>\n    <booking>\n        <firstname>Kim</firstname>\n        <lastname>Parker</lastname>\n        <totalprice>68</totalprice>\n        <depositpaid>true</depositpaid>\n        <bookingdates>\n            <checkin>2021-11-01</checkin>\n            <checkout>2022-11-13</checkout>\n        </bookingdates>\n        <additionalneeds>firewall</additionalneeds>\n    </booking>\n</created-booking>"
 				},
 				{
 					"name": "Create Booking (Mock) - XML",
@@ -1072,6 +1728,359 @@
 					],
 					"cookie": [],
 					"body": "<?xml version='1.0'?>\n<created-booking>\n    <bookingid>28</bookingid>\n    <booking>\n        <firstname>Branson</firstname>\n        <lastname>Bauch</lastname>\n        <totalprice>888</totalprice>\n        <depositpaid>false</depositpaid>\n        <bookingdates>\n            <checkin>2021-04-02</checkin>\n            <checkout>2022-02-22</checkout>\n        </bookingdates>\n        <additionalneeds>minibar,pool</additionalneeds>\n    </booking>\n</created-booking>"
+				}
+			]
+		},
+		{
+			"name": "Get Booking - XML",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"#TEST: Get Booking Request: Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsondata = {};\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - XML: XML response data validation\", () => {\r",
+							"    try {\r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.withBody;\r",
+							"        \r",
+							"        console.log(pm.response.text());\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"XML response data validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//const cheerio = require('cheerio');\r",
+							"const $ = cheerio.load(pm.response.text(), {\r",
+							"    ignoreWhitespace: true,\r",
+							"    xmlMode: true\r",
+							"    });\r",
+							"\r",
+							"\r",
+							"// Render XML\r",
+							"console.log($.xml());\r",
+							"\r",
+							"// JSON schema validation\r",
+							"jsonData = xml2Json($.xml());\r",
+							"\r",
+							"console.log(\"xml2JSON: \" + JSON.stringify(jsonData));\r",
+							"\r",
+							"const schema = JSON.parse(pm.collectionVariables.get(\"GET_BOOKING_XML_SCHEMA\"));\r",
+							"\r",
+							"console.log(\"schema \" + JSON.stringify(schema));\r",
+							"\r",
+							"// XML -> JSON schema validation. Use this since there is no direct way to validate XML schema in postman\r",
+							"pm.test(\"#TEST: Get Booking - XML: XML to JSON response schema validation\", () => {\r",
+							"    try {\r",
+							"        \r",
+							"        pm.expect(tv4.validate(jsonData, schema)).to.be.true;\r",
+							"\r",
+							"        /*\r",
+							"        let Ajv = require('ajv');\r",
+							"        ajv = new Ajv({logger: console, allErrors: true});\r",
+							"        pm.expect(ajv.validate(schema, jsonData), JSON.stringify(ajv.errors)).to.be.true;\r",
+							"        */\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"XML to JSON schema validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - XML: First Name validation\", function () {\r",
+							"    try {\r",
+							"        let firstname = $(\"firstname\");\r",
+							"        console.log(\"firstname: \" + firstname.text());\r",
+							"\r",
+							"        pm.expect(firstname.text()).to.be.eql(pm.collectionVariables.get(\"firstname\"));\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"First Name validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - XML: Last Name validation\", function () {\r",
+							"    try {\r",
+							"        let lastname = $(\"lastname\");\r",
+							"        console.log(\"lastname: \" + lastname.text());\r",
+							"\r",
+							"        pm.expect(lastname.text()).to.be.eql(pm.collectionVariables.get(\"lastname\"));\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Last Name validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - XML: Total Price validation\", function () {\r",
+							"    try {\r",
+							"        let totalprice = $(\"totalprice\");\r",
+							"        console.log(\"totalprice: \" + totalprice.text());\r",
+							"\r",
+							"        pm.expect(totalprice.text()).to.be.eql(pm.collectionVariables.get(\"totalprice\"));\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Total Price validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - XML: Deposit Paid validation\", function () {\r",
+							"    const depositpaidVal = pm.collectionVariables.get(\"depositpaid\");\r",
+							"    try {\r",
+							"        //var boolVal = JSON.parse(depositpaid);\r",
+							"        var boolVal = depositpaidVal === \"true\";\r",
+							"        console.log(\"collectionVariables depositpaid: \" + depositpaidVal);\r",
+							"        console.log(\"depositpaid boolVal: \" + boolVal)\r",
+							"  \r",
+							"        let depositpaid = $(\"depositpaid\");\r",
+							"        console.log(\"depositpaid: \" + depositpaid.text());\r",
+							"\r",
+							"        pm.expect(depositpaid.text()).to.be.eql(pm.collectionVariables.get(\"depositpaid\"));\r",
+							"        //pm.expect(depositpaid.text()).to.be.eql(boolVal);\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Deposit Paid validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - XML: Checkin validation\", function () {\r",
+							"    try {\r",
+							"        let checkin = $(\"checkin\");\r",
+							"        console.log(\"checkin: \" + checkin.text());\r",
+							"\r",
+							"        pm.expect(checkin.text()).to.be.eql(pm.collectionVariables.get(\"checkin\"));\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Checkin validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - XML: Checkout validation\", function () {\r",
+							"    try {\r",
+							"        let checkout = $(\"checkout\");\r",
+							"        console.log(\"checkout: \" + checkout.text());\r",
+							"\r",
+							"        pm.expect(checkout.text()).to.be.eql(pm.collectionVariables.get(\"checkout\"));\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Checkout validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"#TEST: Get Booking - XML: Additional needs validation\", function () {\r",
+							"    try {\r",
+							"        let additionalneeds = $(\"additionalneeds\");\r",
+							"        console.log(\"additionalneeds: \" + additionalneeds.text());\r",
+							"\r",
+							"        pm.expect(additionalneeds.text()).to.be.eql(pm.collectionVariables.get(\"additionalneeds\"));\r",
+							"    }\r",
+							"    catch (e) {\r",
+							"        console.error(\"Additional needs validation failed! \" + e);\r",
+							"        throw e;\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{get_booking_xml_url}}/:id",
+					"host": [
+						"{{get_booking_xml_url}}"
+					],
+					"path": [
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{bookingid}}",
+							"description": "Booking ID"
+						}
+					]
+				},
+				"description": "Sends a get booking request to the Restfulbooker API to retrieve a booking record based on the booking ID. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Booking-GetBooking)."
+			},
+			"response": [
+				{
+					"name": "Get Booking - XML",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/booking/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"booking",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{bookingid}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "335"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"14f-4FByqNj9vFuyG2QZ4622Mzwiu9E\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 24 Feb 2022 08:47:21 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date"
+						}
+					],
+					"body": "<?xml version='1.0'?>\n<booking>\n    <firstname>Maye</firstname>\n    <lastname>Volkman</lastname>\n    <totalprice>48</totalprice>\n    <depositpaid>true</depositpaid>\n    <bookingdates>\n        <checkin>2021-03-18</checkin>\n        <checkout>2022-03-27</checkout>\n    </bookingdates>\n    <additionalneeds>bus</additionalneeds>\n</booking>"
+				},
+				{
+					"name": "Get Booking (Mock) - XML",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/mock/xml/booking/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"mock",
+								"xml",
+								"booking",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Cowboy"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "340"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"154-Pe1mnN749LdnztrLCzx78dTnxfg\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 18 Feb 2022 19:34:56 GMT"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "<?xml version='1.0'?>\n<booking>\n    <firstname>Dena</firstname>\n    <lastname>Schinner</lastname>\n    <totalprice>243</totalprice>\n    <depositpaid>true</depositpaid>\n    <bookingdates>\n        <checkin>2021-10-06</checkin>\n        <checkout>2022-10-25</checkout>\n    </bookingdates>\n    <additionalneeds>sensor</additionalneeds>\n</booking>"
 				}
 			]
 		},
@@ -1275,11 +2284,6 @@
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disabledSystemHeaders": {
-					"accept": true
-				}
-			},
 			"request": {
 				"method": "POST",
 				"header": [
@@ -1295,36 +2299,43 @@
 						{
 							"key": "firstname",
 							"value": "{{firstname}}",
+							"description": "First name",
 							"type": "text"
 						},
 						{
 							"key": "lastname",
 							"value": "{{lastname}}",
+							"description": "Last name",
 							"type": "text"
 						},
 						{
 							"key": "totalprice",
 							"value": "{{totalprice}}",
+							"description": "Total price of booking",
 							"type": "text"
 						},
 						{
 							"key": "depositpaid",
 							"value": "{{depositpaid}}",
+							"description": "Deposit paid (true | false)",
 							"type": "text"
 						},
 						{
 							"key": "bookingdates[checkin]",
 							"value": "{{checkin}}",
+							"description": "Check in date in YYYY-MM-DD string format",
 							"type": "text"
 						},
 						{
 							"key": "bookingdates[checkout]",
 							"value": "{{checkout}}",
+							"description": "Check out date in YYYY-MM-DD string format",
 							"type": "text"
 						},
 						{
 							"key": "additionalneeds",
 							"value": "{{additionalneeds}}",
+							"description": "Additional needs",
 							"type": "text"
 						}
 					]
@@ -1334,7 +2345,8 @@
 					"host": [
 						"{{create_booking_urlencoded_url}}"
 					]
-				}
+				},
+				"description": "Sends a create booking request using URL encoded format. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Booking-CreateBooking)."
 			},
 			"response": [
 				{
@@ -1353,37 +2365,37 @@
 							"urlencoded": [
 								{
 									"key": "firstname",
-									"value": "{{firstname}}",
+									"value": "Brayan",
 									"type": "text"
 								},
 								{
 									"key": "lastname",
-									"value": "{{lastname}}",
+									"value": "Klein",
 									"type": "text"
 								},
 								{
 									"key": "totalprice",
-									"value": "{{totalprice}}",
+									"value": "511",
 									"type": "text"
 								},
 								{
 									"key": "depositpaid",
-									"value": "{{depositpaid}}",
+									"value": "true",
 									"type": "text"
 								},
 								{
 									"key": "bookingdates[checkin]",
-									"value": "{{checkin}}",
+									"value": "2021-08-29",
 									"type": "text"
 								},
 								{
 									"key": "bookingdates[checkout]",
-									"value": "{{checkout}}",
+									"value": "2022-09-25",
 									"type": "text"
 								},
 								{
 									"key": "additionalneeds",
-									"value": "{{additionalneeds}}",
+									"value": "microchip",
 									"type": "text"
 								}
 							]
@@ -1454,37 +2466,37 @@
 							"urlencoded": [
 								{
 									"key": "firstname",
-									"value": "{{firstname}}",
+									"value": "Brayan",
 									"type": "text"
 								},
 								{
 									"key": "lastname",
-									"value": "{{lastname}}",
+									"value": "Klein",
 									"type": "text"
 								},
 								{
 									"key": "totalprice",
-									"value": "{{totalprice}}",
+									"value": "511",
 									"type": "text"
 								},
 								{
 									"key": "depositpaid",
-									"value": "{{depositpaid}}",
+									"value": "true",
 									"type": "text"
 								},
 								{
 									"key": "bookingdates[checkin]",
-									"value": "{{checkin}}",
+									"value": "2021-08-29",
 									"type": "text"
 								},
 								{
 									"key": "bookingdates[checkout]",
-									"value": "{{checkout}}",
+									"value": "2022-09-25",
 									"type": "text"
 								},
 								{
 									"key": "additionalneeds",
-									"value": "{{additionalneeds}}",
+									"value": "microchip",
 									"type": "text"
 								}
 							]
@@ -1544,141 +2556,19 @@
 			]
 		},
 		{
-			"name": "Get Booking - JSON",
+			"name": "Get Booking - Non Existent - JSON",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"#TEST: Get Booking Request: Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"pm.test(\"#TEST: Get Booking Request: Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
 							"});\r",
 							"\r",
-							"let jsondata = {};\r",
-							"\r",
-							"pm.test(\"#TEST: Get Booking - JSON: JSON response data validation\", () => {\r",
-							"    try {\r",
-							"        pm.response.to.be.ok.\r",
-							"            and.to.be.withBody.\r",
-							"            and.to.be.json;\r",
-							"\r",
-							"\r",
-							"        jsonData = pm.response.json();\r",
-							"    }\r",
-							"    catch (e) {\r",
-							"        console.error(\"JSON response data validation failed! \" + e);\r",
-							"        throw e;\r",
-							"    }\r",
-							"});\r",
-							"\r",
-							"\r",
-							"// JSON schema validation\r",
-							"const schema = JSON.parse(pm.collectionVariables.get(\"GET_BOOKING_JSON_SCHEMA\"));\r",
-							"\r",
-							"pm.test(\"#TEST: Get Booking - JSON: JSON response schema validation\", () => {\r",
-							"    pm.response.to.have.jsonSchema(schema);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"#TEST: Get Booking - JSON: First Name validation\", function () {\r",
-							"    const firstname = pm.collectionVariables.get(\"firstname\");\r",
-							"    try {\r",
-							"        pm.expect(jsonData).to.have.property(\"firstname\", firstname);\r",
-							"        console.log(\"firstname: \" + jsonData.firstname);\r",
-							"    }\r",
-							"    catch (e) {\r",
-							"        console.error(\"First Name validation failed! \" + e);\r",
-							"        throw e;\r",
-							"    }\r",
-							"});\r",
-							"\r",
-							"pm.test(\"#TEST: Get Booking - JSON: Last Name validation\", function () {\r",
-							"    const lastname = pm.collectionVariables.get(\"lastname\");\r",
-							"    try {\r",
-							"        pm.expect(jsonData).to.have.property(\"lastname\", lastname);\r",
-							"        console.log(\"lastname: \" + jsonData.lastname);\r",
-							"    }\r",
-							"    catch (e) {\r",
-							"        console.error(\"Last Name validation failed! \" + e);\r",
-							"        throw e;\r",
-							"    }\r",
-							"});\r",
-							"\r",
-							"pm.test(\"#TEST: Get Booking - JSON: Total Price validation\", function () {\r",
-							"    const totalprice = Number.parseInt(pm.collectionVariables.get(\"totalprice\"));\r",
-							"    try {\r",
-							"        pm.expect(jsonData).to.have.property(\"totalprice\", totalprice);\r",
-							"        console.log(\"totalprice: \" + jsonData.totalprice);\r",
-							"    }\r",
-							"    catch (e) {\r",
-							"        console.error(\"Total Price validation failed! \" + e);\r",
-							"        throw e;\r",
-							"    }\r",
-							"});\r",
-							"\r",
-							"pm.test(\"#TEST: Get Booking - JSON: Deposit Paid validation\", function () {\r",
-							"    const depositpaid = pm.collectionVariables.get(\"depositpaid\");\r",
-							"    try {\r",
-							"        //var boolVal = JSON.parse(depositpaid);\r",
-							"        var boolVal = depositpaid == \"true\";\r",
-							"        console.log(\"collectionVariables depositpaid: \" + depositpaid)\r",
-							"        console.log(\"depositpaid boolVal: \" + boolVal)\r",
-							"        pm.expect(jsonData).to.have.property(\"depositpaid\", boolVal);\r",
-							"  \r",
-							"/*\r",
-							"        // alternative way to validate\r",
-							"        pm.expect(jsonData).has.ownProperty(\"depositpaid\");\r",
-							"        pm.expect(jsonData.depositpaid.toString()).eql(depositpaid)\r",
-							"*/\r",
-							"        console.log(\"depositpaid: \" + jsonData.depositpaid);\r",
-							"    }\r",
-							"    catch (e) {\r",
-							"        console.error(\"Deposit Paid validation failed! \" + e);\r",
-							"        throw e;\r",
-							"    }\r",
-							"});\r",
-							"\r",
-							"pm.test(\"#TEST: Get Booking - JSON: Additional Needs validation\", function () {\r",
-							"    const additionalneeds = pm.collectionVariables.get(\"additionalneeds\");\r",
-							"    try {\r",
-							"        pm.expect(jsonData).to.have.property(\"additionalneeds\", additionalneeds);\r",
-							"        console.log(\"additionalneeds: \" + jsonData.additionalneeds);\r",
-							"    }\r",
-							"    catch (e) {\r",
-							"        console.error(\"Additional Needs validation failed! \" + e);\r",
-							"        throw e;\r",
-							"    }\r",
-							"});\r",
-							"\r",
-							"pm.test(\"#TEST: Get Booking - JSON: Checkin Date validation\", function () {\r",
-							"    const checkin = pm.collectionVariables.get(\"checkin\");\r",
-							"    try {\r",
-							"        pm.expect(jsonData.bookingdates).to.have.property(\"checkin\", checkin);\r",
-							"        console.log(\"checkin: \" + jsonData.bookingdates.checkin);\r",
-							"        console.log(\"collectionVariables checkin: \" + checkin);\r",
-							"    }\r",
-							"    catch (e) {\r",
-							"        console.error(\"Checkin Date validation failed! \" + e);\r",
-							"        throw e;\r",
-							"    }\r",
-							"});\r",
-							"\r",
-							"pm.test(\"#TEST: Get Booking - JSON: Checkout Date validation\", function () {\r",
-							"    const checkout = pm.collectionVariables.get(\"checkout\");\r",
-							"    try {\r",
-							"        pm.expect(jsonData.bookingdates).to.have.property(\"checkout\", checkout);\r",
-							"        console.log(\"checkout: \" + jsonData.bookingdates.checkout);\r",
-							"        console.log(\"collectionVariables checkout: \" + checkout);\r",
-							"    }\r",
-							"    catch (e) {\r",
-							"        console.error(\"Checkout Date validation failed! \" + e);\r",
-							"        throw e;\r",
-							"    }\r",
-							"});\r",
-							"\r",
-							"\r",
-							"\r",
-							"\r",
-							""
+							"pm.test(\"TEST: Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -1687,7 +2577,7 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"//pm.variables.set(\"id\", pm.collectionVariables.get(\"bookingid\"));"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -1718,15 +2608,16 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": null
+							"value": "123456789",
+							"description": "Dummy booking id"
 						}
 					]
 				},
-				"description": "Sends a ping request to the Restfulbooker API to determine if the service is up. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Ping-Ping)."
+				"description": "Sends a get booking request to the Restfulbooker API to retrieve a booking record based on the booking ID. This test is specific for a non-existent booking record to test the response status. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Booking-GetBooking)."
 			},
 			"response": [
 				{
-					"name": "Get Booking - JSON",
+					"name": "Get Booking - Non Existent - JSON",
 					"originalRequest": {
 						"method": "GET",
 						"header": [
@@ -1747,14 +2638,15 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "{{bookingid}}"
+									"value": "123456789",
+									"description": "Dummy booking id"
 								}
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "plain",
 					"header": [
 						{
 							"key": "Server",
@@ -1770,19 +2662,19 @@
 						},
 						{
 							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
+							"value": "text/plain; charset=utf-8"
 						},
 						{
 							"key": "Content-Length",
-							"value": "172"
+							"value": "9"
 						},
 						{
 							"key": "Etag",
-							"value": "W/\"ac-cADWL4ZnGnhGBYUUO2+atwmrptA\""
+							"value": "W/\"9-0gXL1ngzMqISxa6S1zx3F4wtLyg\""
 						},
 						{
 							"key": "Date",
-							"value": "Thu, 10 Feb 2022 20:16:18 GMT"
+							"value": "Fri, 18 Feb 2022 18:07:48 GMT"
 						},
 						{
 							"key": "Via",
@@ -1790,10 +2682,10 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"firstname\": \"Miguel\",\n    \"lastname\": \"Rohan\",\n    \"totalprice\": 206,\n    \"depositpaid\": true,\n    \"bookingdates\": {\n        \"checkin\": \"2021-04-17\",\n        \"checkout\": \"2022-10-15\"\n    },\n    \"additionalneeds\": \"hard drive\"\n}"
+					"body": "Not Found"
 				},
 				{
-					"name": "Get Booking (Mock) - JSON",
+					"name": "Get Booking - Non Existent (Mock) - JSON",
 					"originalRequest": {
 						"method": "GET",
 						"header": [
@@ -1817,14 +2709,15 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "{{bookingid}}"
+									"value": "123456789",
+									"description": "Dummy booking id"
 								}
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "plain",
 					"header": [
 						{
 							"key": "Server",
@@ -1840,19 +2733,19 @@
 						},
 						{
 							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
+							"value": "text/plain; charset=utf-8"
 						},
 						{
 							"key": "Content-Length",
-							"value": "173"
+							"value": "9"
 						},
 						{
 							"key": "Etag",
-							"value": "W/\"ad-ntXtI/QtZ2GCckcWHlHWLXBfv90\""
+							"value": "W/\"9-0gXL1ngzMqISxa6S1zx3F4wtLyg\""
 						},
 						{
 							"key": "Date",
-							"value": "Thu, 10 Feb 2022 19:59:55 GMT"
+							"value": "Fri, 18 Feb 2022 18:07:48 GMT"
 						},
 						{
 							"key": "Via",
@@ -1860,7 +2753,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"firstname\": \"Christob\",\n    \"lastname\": \"Brown\",\n    \"totalprice\": 111,\n    \"depositpaid\": true,\n    \"bookingdates\": {\n        \"checkin\": \"2018-01-01\",\n        \"checkout\": \"2019-01-01\"\n    },\n    \"additionalneeds\": \"Breakfast\"\n}"
+					"body": "Not Found"
 				}
 			]
 		},
@@ -1951,7 +2844,7 @@
 						"{{get_booking_ids_url}}"
 					]
 				},
-				"description": "Sends a ping request to the Restfulbooker API to determine if the service is up. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Ping-Ping)."
+				"description": "Sends a request to the Restfulbooker API to retrieve the list of all available booking IDs without any search filter. The response is expected to have an array of JSON object with a bookingid property. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Booking-GetBookings)."
 			},
 			"response": [
 				{
@@ -2132,7 +3025,7 @@
 							"            }\r",
 							"        };\r",
 							"\r",
-							"        console.log(\"getBookingReq: \" + getBookingReq);\r",
+							"        console.log(\"getBookingReq: \" + JSON.stringify(getBookingReq));\r",
 							"\r",
 							"        pm.sendRequest(\r",
 							"            getBookingReq,\r",
@@ -2142,8 +3035,10 @@
 							"                        console.error(error);\r",
 							"                    }\r",
 							"\r",
-							"                    pm.response.to.have.status(200);\r",
-							"\r",
+							"                    //pm.response.to.have.status(200);\r",
+							"                    pm.expect(error).to.equal(null);\r",
+							"                    pm.expect(response).to.have.property('code', 200);\r",
+							"                    pm.expect(response).to.have.property('status', 'OK');\r",
 							"\r",
 							"                    //validate first name and last name of each booking id\r",
 							"                    let jsonData2 = response.json();\r",
@@ -2188,15 +3083,17 @@
 					"query": [
 						{
 							"key": "firstname",
-							"value": "{{firstname}}"
+							"value": "{{firstname}}",
+							"description": "First name search filter"
 						},
 						{
 							"key": "lastname",
-							"value": "{{lastname}}"
+							"value": "{{lastname}}",
+							"description": "Last name search filter"
 						}
 					]
 				},
-				"description": "Sends a ping request to the Restfulbooker API to determine if the service is up. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Ping-Ping)."
+				"description": "Sends a request to the Restfulbooker API to retrieve the list of all available booking IDs with search filter for first and last name. The response is expected to have an array of JSON object with a bookingid property if the first name and last name match the search filters. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Booking-GetBookings)."
 			},
 			"response": [
 				{
@@ -2215,11 +3112,13 @@
 							"query": [
 								{
 									"key": "firstname",
-									"value": "{{firstname}}"
+									"value": "{{firstname}}",
+									"description": "First name search filter"
 								},
 								{
 									"key": "lastname",
-									"value": "{{lastname}}"
+									"value": "{{lastname}}",
+									"description": "Last name search filter"
 								}
 							]
 						}
@@ -2282,11 +3181,13 @@
 							"query": [
 								{
 									"key": "firstname",
-									"value": "{{firstname}}"
+									"value": "{{firstname}}",
+									"description": "First name search filter"
 								},
 								{
 									"key": "lastname",
-									"value": "{{lastname}}"
+									"value": "{{lastname}}",
+									"description": "Last name search filter"
 								}
 							]
 						}
@@ -2378,7 +3279,7 @@
 							"\r",
 							"pm.test(\"#TEST: Get Booking IDs Filter by Date - JSON: Booking ID validation\", () => {\r",
 							"    if (jsonData.length === 0) {\r",
-							"        console.log(\"#TEST: Get Booking IDs Filter by Name - List of Booking empty\");\r",
+							"        console.log(\"#TEST: Get Booking IDs Filter by Date - List of Booking empty\");\r",
 							"    }\r",
 							"\r",
 							"    jsonData.forEach(booking => {\r",
@@ -2396,6 +3297,8 @@
 							"            }\r",
 							"        };\r",
 							"\r",
+							"        console.log(\"getBookingReq: \" + JSON.stringify(getBookingReq));\r",
+							"\r",
 							"        pm.sendRequest(\r",
 							"            getBookingReq,\r",
 							"            (error, response) => {\r",
@@ -2404,7 +3307,10 @@
 							"                        console.error(error);\r",
 							"                    }\r",
 							"\r",
-							"                    pm.response.to.have.status(200);\r",
+							"                    //pm.response.to.have.status(200);\r",
+							"                    pm.expect(error).to.equal(null);\r",
+							"                    pm.expect(response).to.have.property('code', 200);\r",
+							"                    pm.expect(response).to.have.property('status', 'OK');\r",
 							"\r",
 							"                    //let _ = require(\"lodash\");\r",
 							"                    let moment = require(\"moment\");\r",
@@ -2471,7 +3377,7 @@
 						}
 					]
 				},
-				"description": "Sends a ping request to the Restfulbooker API to determine if the service is up. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Ping-Ping)."
+				"description": "Sends a request to the Restfulbooker API to retrieve the list of all available booking IDs with search filter for check in and check out dates. The response is expected to have an array of JSON object with a bookingid property if the booking dates fall between the search filter dates (inclusive). The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Booking-GetBookings)."
 			},
 			"response": [
 				{
@@ -2713,13 +3619,18 @@
 			"type": "string"
 		},
 		{
+			"key": "GET_BOOKING_JSON_SCHEMA",
+			"value": "{\n    \"$schema\": \"http://json-schema.org/draft-07/schema\",\n    \"$id\": \"http://example.com/example.json\",\n    \"type\": \"object\",\n    \"title\": \"The root schema\",\n    \"description\": \"The root schema comprises the entire JSON document.\",\n    \"examples\": [\n        {\n            \"firstname\": \"Miguel\",\n            \"lastname\": \"Rohan\",\n            \"totalprice\": 206,\n            \"depositpaid\": true,\n            \"bookingdates\": {\n                \"checkin\": \"2021-04-17\",\n                \"checkout\": \"2022-10-15\"\n            },\n            \"additionalneeds\": \"hard drive\"\n        }\n    ],\n    \"required\": [\n        \"firstname\",\n        \"lastname\",\n        \"totalprice\",\n        \"depositpaid\",\n        \"bookingdates\"\n    ],\n    \"properties\": {\n        \"firstname\": {\n            \"$id\": \"#/properties/firstname\",\n            \"type\": \"string\",\n            \"title\": \"The firstname schema\",\n            \"description\": \"The first name used when booking was created.\",\n            \"default\": \"\",\n            \"examples\": [\n                \"Miguel\"\n            ]\n        },\n        \"lastname\": {\n            \"$id\": \"#/properties/lastname\",\n            \"type\": \"string\",\n            \"title\": \"The lastname schema\",\n            \"description\": \"The last name used when booking was created.\",\n            \"default\": \"\",\n            \"examples\": [\n                \"Rohan\"\n            ]\n        },\n        \"totalprice\": {\n            \"$id\": \"#/properties/totalprice\",\n            \"type\": \"integer\",\n            \"title\": \"The totalprice schema\",\n            \"description\": \"The total price used when booking was created.\",\n            \"default\": 0,\n            \"examples\": [\n                206\n            ]\n        },\n        \"depositpaid\": {\n            \"$id\": \"#/properties/depositpaid\",\n            \"type\": \"boolean\",\n            \"title\": \"The depositpaid schema\",\n            \"description\": \"The deposit paid indicator used when booking was created.\",\n            \"default\": false,\n            \"examples\": [\n                true\n            ]\n        },\n        \"bookingdates\": {\n            \"$id\": \"#/properties/bookingdates\",\n            \"type\": \"object\",\n            \"title\": \"The bookingdates schema\",\n            \"description\": \"Check in and check out dates used when booking was created.\",\n            \"default\": {},\n            \"examples\": [\n                {\n                    \"checkin\": \"2021-04-17\",\n                    \"checkout\": \"2022-10-15\"\n                }\n            ],\n            \"required\": [\n                \"checkin\",\n                \"checkout\"\n            ],\n            \"properties\": {\n                \"checkin\": {\n                    \"$id\": \"#/properties/bookingdates/properties/checkin\",\n                    \"type\": \"string\",\n                    \"title\": \"The checkin schema\",\n                    \"description\": \"Check in date in YYYY-MM-DD format when booking was created.\",\n                    \"default\": \"\",\n                    \"examples\": [\n                        \"2021-04-17\"\n                    ]\n                },\n                \"checkout\": {\n                    \"$id\": \"#/properties/bookingdates/properties/checkout\",\n                    \"type\": \"string\",\n                    \"title\": \"The checkout schema\",\n                    \"description\": \"Check out date in YYYY-MM-DD format when booking was created.\",\n                    \"default\": \"\",\n                    \"examples\": [\n                        \"2022-10-15\"\n                    ]\n                }\n            },\n            \"additionalProperties\": false\n        },\n        \"additionalneeds\": {\n            \"$id\": \"#/properties/additionalneeds\",\n            \"type\": \"string\",\n            \"title\": \"The additionalneeds schema\",\n            \"description\": \"An optional property to indicate additional needs when booking was created.\",\n            \"default\": \"\",\n            \"examples\": [\n                \"hard drive\"\n            ]\n        }\n    },\n    \"additionalProperties\": false\n}",
+			"type": "string"
+		},
+		{
 			"key": "GET_BOOKINGIDS_JSON_SCHEMA",
 			"value": "{\n    \"$schema\": \"http://json-schema.org/draft-07/schema\",\n    \"$id\": \"http://example.com/example.json\",\n    \"type\": \"array\",\n    \"uniqueItems\": true,\n    \"title\": \"The root schema\",\n    \"description\": \"The root schema comprises the entire JSON document.\",\n    \"default\": [],\n    \"examples\": [\n        [\n            {\n                \"bookingid\": 12\n            },\n            {\n                \"bookingid\": 23\n            }\n        ]\n    ],\n    \"additionalItems\": false,\n    \"items\": {\n        \"$id\": \"#/items\",\n        \"anyOf\": [\n            {\n                \"$id\": \"#/items/anyOf/0\",\n                \"type\": \"object\",\n                \"title\": \"The first anyOf schema\",\n                \"description\": \"A list of zero or more objects containing a single property of bookingid.\",\n                \"examples\": [\n                    {\n                        \"bookingid\": 12\n                    }\n                ],\n                \"required\": [\n                    \"bookingid\"\n                ],\n                \"properties\": {\n                    \"bookingid\": {\n                        \"$id\": \"#/items/anyOf/0/properties/bookingid\",\n                        \"type\": \"integer\",\n                        \"title\": \"The bookingid schema\",\n                        \"description\": \"bookingid property of type integer.\",\n                        \"examples\": [\n                            12\n                        ]\n                    }\n                },\n                \"additionalProperties\": false\n            }\n        ]\n    }\n}",
 			"type": "string"
 		},
 		{
-			"key": "GET_BOOKING_JSON_SCHEMA",
-			"value": "{\n    \"$schema\": \"http://json-schema.org/draft-07/schema\",\n    \"$id\": \"http://example.com/example.json\",\n    \"type\": \"object\",\n    \"title\": \"The root schema\",\n    \"description\": \"The root schema comprises the entire JSON document.\",\n    \"examples\": [\n        {\n            \"firstname\": \"Miguel\",\n            \"lastname\": \"Rohan\",\n            \"totalprice\": 206,\n            \"depositpaid\": true,\n            \"bookingdates\": {\n                \"checkin\": \"2021-04-17\",\n                \"checkout\": \"2022-10-15\"\n            },\n            \"additionalneeds\": \"hard drive\"\n        }\n    ],\n    \"required\": [\n        \"firstname\",\n        \"lastname\",\n        \"totalprice\",\n        \"depositpaid\",\n        \"bookingdates\"\n    ],\n    \"properties\": {\n        \"firstname\": {\n            \"$id\": \"#/properties/firstname\",\n            \"type\": \"string\",\n            \"title\": \"The firstname schema\",\n            \"description\": \"The first name used when booking was created.\",\n            \"default\": \"\",\n            \"examples\": [\n                \"Miguel\"\n            ]\n        },\n        \"lastname\": {\n            \"$id\": \"#/properties/lastname\",\n            \"type\": \"string\",\n            \"title\": \"The lastname schema\",\n            \"description\": \"The last name used when booking was created.\",\n            \"default\": \"\",\n            \"examples\": [\n                \"Rohan\"\n            ]\n        },\n        \"totalprice\": {\n            \"$id\": \"#/properties/totalprice\",\n            \"type\": \"integer\",\n            \"title\": \"The totalprice schema\",\n            \"description\": \"The total price used when booking was created.\",\n            \"default\": 0,\n            \"examples\": [\n                206\n            ]\n        },\n        \"depositpaid\": {\n            \"$id\": \"#/properties/depositpaid\",\n            \"type\": \"boolean\",\n            \"title\": \"The depositpaid schema\",\n            \"description\": \"The deposit paid indicator used when booking was created.\",\n            \"default\": false,\n            \"examples\": [\n                true\n            ]\n        },\n        \"bookingdates\": {\n            \"$id\": \"#/properties/bookingdates\",\n            \"type\": \"object\",\n            \"title\": \"The bookingdates schema\",\n            \"description\": \"Check in and check out dates used when booking was created.\",\n            \"default\": {},\n            \"examples\": [\n                {\n                    \"checkin\": \"2021-04-17\",\n                    \"checkout\": \"2022-10-15\"\n                }\n            ],\n            \"required\": [\n                \"checkin\",\n                \"checkout\"\n            ],\n            \"properties\": {\n                \"checkin\": {\n                    \"$id\": \"#/properties/bookingdates/properties/checkin\",\n                    \"type\": \"string\",\n                    \"title\": \"The checkin schema\",\n                    \"description\": \"Check in date in YYYY-MM-DD format when booking was created.\",\n                    \"default\": \"\",\n                    \"examples\": [\n                        \"2021-04-17\"\n                    ]\n                },\n                \"checkout\": {\n                    \"$id\": \"#/properties/bookingdates/properties/checkout\",\n                    \"type\": \"string\",\n                    \"title\": \"The checkout schema\",\n                    \"description\": \"Check out date in YYYY-MM-DD format when booking was created.\",\n                    \"default\": \"\",\n                    \"examples\": [\n                        \"2022-10-15\"\n                    ]\n                }\n            },\n            \"additionalProperties\": false\n        },\n        \"additionalneeds\": {\n            \"$id\": \"#/properties/additionalneeds\",\n            \"type\": \"string\",\n            \"title\": \"The additionalneeds schema\",\n            \"description\": \"An optional property to indicate additional needs when booking was created.\",\n            \"default\": \"\",\n            \"examples\": [\n                \"hard drive\"\n            ]\n        }\n    },\n    \"additionalProperties\": false\n}",
+			"key": "GET_BOOKING_XML_SCHEMA",
+			"value": "{\n    \"$schema\": \"http://json-schema.org/draft-07/schema\",\n    \"$id\": \"http://example.com/example.json\",\n    \"type\": \"object\",\n    \"title\": \"The root schema\",\n    \"description\": \"The root schema comprises the entire JSON document which was transformed from an XML document.\",\n    \"default\": {},\n    \"examples\": [\n        {\n            \"booking\": {\n                \"firstname\": \"Junior\",\n                \"lastname\": \"Collier\",\n                \"totalprice\": \"74\",\n                \"depositpaid\": \"true\",\n                \"bookingdates\": {\n                    \"checkin\": \"2021-08-15\",\n                    \"checkout\": \"2022-10-16\"\n                },\n                \"additionalneeds\": \"panel\"\n            }\n        }\n    ],\n    \"required\": [\n        \"booking\"\n    ],\n    \"properties\": {\n        \"booking\": {\n            \"$id\": \"#/properties/booking\",\n            \"default\": {},\n            \"description\": \"This object contains the properties of a booking record.\",\n            \"examples\": [\n                {\n                    \"firstname\": \"Junior\",\n                    \"lastname\": \"Collier\",\n                    \"totalprice\": \"74\",\n                    \"depositpaid\": \"true\",\n                    \"bookingdates\": {\n                        \"checkin\": \"2021-08-15\",\n                        \"checkout\": \"2022-10-16\"\n                    },\n                    \"additionalneeds\": \"panel\"\n                }\n            ],\n            \"required\": [\n                \"firstname\",\n                \"lastname\",\n                \"totalprice\",\n                \"depositpaid\",\n                \"bookingdates\",\n                \"additionalneeds\"\n            ],\n            \"title\": \"The booking schema\",\n            \"type\": \"object\",\n            \"properties\": {\n                \"firstname\": {\n                    \"$id\": \"#/properties/booking/properties/firstname\",\n                    \"default\": \"\",\n                    \"description\": \"First name of the booking record.\",\n                    \"examples\": [\n                        \"Junior\"\n                    ],\n                    \"title\": \"The firstname schema\",\n                    \"type\": \"string\"\n                },\n                \"lastname\": {\n                    \"$id\": \"#/properties/booking/properties/lastname\",\n                    \"default\": \"\",\n                    \"description\": \"The last name of the booking record.\",\n                    \"examples\": [\n                        \"Collier\"\n                    ],\n                    \"title\": \"The lastname schema\",\n                    \"type\": \"string\"\n                },\n                \"totalprice\": {\n                    \"$id\": \"#/properties/booking/properties/totalprice\",\n                    \"default\": \"\",\n                    \"description\": \"The total price paid for the booking.\",\n                    \"examples\": [\n                        \"74\"\n                    ],\n                    \"title\": \"The totalprice schema\",\n                    \"type\": \"string\"\n                },\n                \"depositpaid\": {\n                    \"$id\": \"#/properties/booking/properties/depositpaid\",\n                    \"default\": \"\",\n                    \"description\": \"true if a deposit was paid, othewise false.\",\n                    \"examples\": [\n                        \"true\"\n                    ],\n                    \"title\": \"The depositpaid schema\",\n                    \"type\": \"string\"\n                },\n                \"bookingdates\": {\n                    \"$id\": \"#/properties/booking/properties/bookingdates\",\n                    \"default\": {},\n                    \"description\": \"An object containing the checkin and checkout date properties.\",\n                    \"examples\": [\n                        {\n                            \"checkin\": \"2021-08-15\",\n                            \"checkout\": \"2022-10-16\"\n                        }\n                    ],\n                    \"required\": [\n                        \"checkin\",\n                        \"checkout\"\n                    ],\n                    \"title\": \"The bookingdates schema\",\n                    \"type\": \"object\",\n                    \"properties\": {\n                        \"checkin\": {\n                            \"$id\": \"#/properties/booking/properties/bookingdates/properties/checkin\",\n                            \"default\": \"\",\n                            \"description\": \"Indicates the check-in date in YYYY-MM-DD string format.\",\n                            \"examples\": [\n                                \"2021-08-15\"\n                            ],\n                            \"title\": \"The checkin schema\",\n                            \"type\": \"string\"\n                        },\n                        \"checkout\": {\n                            \"$id\": \"#/properties/booking/properties/bookingdates/properties/checkout\",\n                            \"default\": \"\",\n                            \"description\": \"Indicates the check-out date in YYYY-MM-DD string format.\",\n                            \"examples\": [\n                                \"2022-10-16\"\n                            ],\n                            \"title\": \"The checkout schema\",\n                            \"type\": \"string\"\n                        }\n                    },\n                    \"additionalProperties\": false\n                },\n                \"additionalneeds\": {\n                    \"$id\": \"#/properties/booking/properties/additionalneeds\",\n                    \"default\": \"\",\n                    \"description\": \"Indicates if there are any additional needs per the booking record.\",\n                    \"examples\": [\n                        \"panel\"\n                    ],\n                    \"title\": \"The additionalneeds schema\",\n                    \"type\": \"string\"\n                }\n            },\n            \"additionalProperties\": false\n        }\n    },\n    \"additionalProperties\": false\n}",
 			"type": "string"
 		},
 		{
