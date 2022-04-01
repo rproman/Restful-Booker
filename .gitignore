@@ -1,0 +1,6 @@
+#ignore files for Restful Booker postman implementation
+
+#ignore newman output directory
+postman/newman
+
+package-lock.json
