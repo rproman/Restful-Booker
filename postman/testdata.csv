@@ -1,0 +1,7 @@
+first_name,last_name,total_price,check_in,check_out,additional_needs,deposit_paid,data_format
+Tess,Beeho,76,2020-01-19,2021-08-27,Spring Roll Veg Mini,true,json
+Alvera,Carnow,4311,2020-05-01,2021-03-16,Country Roll,true,xml
+Gwenneth,Dean,1002,2021-06-13,2023-07-22,Veal - Heart,false,urlencoded
+Olag,Kohrs,1824,2020-03-22,2020-10-25,Appetizer - Assorted Box,false,json
+Denice,Pabst,4486,2021-01-18,2021-02-03,Wine - Barossa Valley Estate,true,urlencoded
+Kahlil,Mapis,2927,2023-01-20,2020-08-24,Muffin Orange Individual,false,xml
