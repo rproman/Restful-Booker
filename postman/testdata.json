@@ -1,0 +1,62 @@
+[
+  {
+    "first_name": "Tess",
+    "last_name": "Beeho",
+    "total_price": 76,
+    "check_in": "2020-01-19",
+    "check_out": "2021-08-27",
+    "additional_needs": "Spring Roll Veg Mini",
+    "deposit_paid": true,
+    "data_format": "json"
+  },
+  {
+    "first_name": "Alvera",
+    "last_name": "Carnow",
+    "total_price": 4311,
+    "check_in": "2020-05-01",
+    "check_out": "2021-03-16",
+    "additional_needs": "Country Roll",
+    "deposit_paid": true,
+    "data_format": "xml"
+  },
+  {
+    "first_name": "Gwenneth",
+    "last_name": "Dean",
+    "total_price": 1002,
+    "check_in": "2021-06-13",
+    "check_out": "2023-07-22",
+    "additional_needs": "Veal - Heart",
+    "deposit_paid": false,
+    "data_format": "urlencoded"
+  },
+  {
+    "first_name": "Olag",
+    "last_name": "Kohrs",
+    "total_price": 1824,
+    "check_in": "2020-03-22",
+    "check_out": "2020-10-25",
+    "additional_needs": "Appetizer - Assorted Box",
+    "deposit_paid": false,
+    "data_format": "json"
+  },
+  {
+    "first_name": "Denice",
+    "last_name": "Pabst",
+    "total_price": 4486,
+    "check_in": "2021-01-18",
+    "check_out": "2021-02-03",
+    "additional_needs": "Wine - Barossa Valley Estate",
+    "deposit_paid": true,
+    "data_format": "urlencoded"
+  },
+  {
+    "first_name": "Kahlil",
+    "last_name": "Mapis",
+    "total_price": 2927,
+    "check_in": "2023-01-20",
+    "check_out": "2020-08-24",
+    "additional_needs": "Muffin Orange Individual",
+    "deposit_paid": false,
+    "data_format": "xml"
+  }
+]
