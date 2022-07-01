@@ -3,8 +3,7 @@
 		"_postman_id": "33edb186-d91d-45c5-8707-bbb7e5289c19",
 		"name": "Restful Booker Test Fork",
 		"description": "This collection demonstrates different ways to perform CRUD web API testing. It uses different test validations with different request and response formats (i.e., JSON, XML, and form URL encoded data).\n\nThe web service API used is Restfulbooker API which can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html).",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "18313954"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
@@ -16,6 +15,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "56901334-81e4-4703-814a-97c54dbb3d1e",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Tests ===`);\r",
 									"\r",
@@ -34,35 +34,24 @@
 							}
 						}
 					],
+					"id": "c912bd33-8a36-491c-91fb-558cd07e6b44",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{base_url}}/ping",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"ping"
-							]
-						},
+						"url": "{{base_url}}/ping",
 						"description": "Sends a ping request to the Restfulbooker API to determine if the service is up. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Ping-Ping)."
 					},
 					"response": [
 						{
+							"id": "d08d80f6-d2f8-4946-bdba-73671d3ce2ce",
 							"name": "Ping Request",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{prod_url}}/ping",
-									"host": [
-										"{{prod_url}}"
-									],
-									"path": [
-										"ping"
-									]
-								}
+								"url": "{{prod_url}}/ping"
 							},
 							"status": "Created",
 							"code": 201,
@@ -102,22 +91,16 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "Created"
 						},
 						{
+							"id": "9e9a1a33-acd5-4567-9a23-a6445851ee64",
 							"name": "Ping Request (Mock)",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{mock_url}}/ping",
-									"host": [
-										"{{mock_url}}"
-									],
-									"path": [
-										"ping"
-									]
-								}
+								"url": "{{mock_url}}/ping"
 							},
 							"status": "Created",
 							"code": 201,
@@ -157,6 +140,7 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "Created"
 						}
 					]
@@ -167,6 +151,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "35879870-be53-4cf1-973c-22bc795ab83a",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Tests ===`);\r",
 									"\r",
@@ -215,6 +200,10 @@
 							}
 						}
 					],
+					"id": "9e58b9e8-1e6f-4b69-94de-c28803627eaa",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -227,19 +216,12 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/auth",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"auth"
-							]
-						},
+						"url": "{{base_url}}/auth",
 						"description": "Sends an authentication request to create a new auth token. The token can be saved and later used for the PUT and DELETE /booking requests.\n\nThe API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Auth-CreateToken)."
 					},
 					"response": [
 						{
+							"id": "7f8129eb-6bb9-4f8c-8154-c1a530051bae",
 							"name": "Auth Request",
 							"originalRequest": {
 								"method": "POST",
@@ -253,15 +235,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{prod_url}}/auth",
-									"host": [
-										"{{prod_url}}"
-									],
-									"path": [
-										"auth"
-									]
-								}
+								"url": "{{prod_url}}/auth"
 							},
 							"status": "OK",
 							"code": 200,
@@ -301,9 +275,11 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "{\n    \"token\": \"abc123\"\n}"
 						},
 						{
+							"id": "1fd4085e-6423-4cd6-ab6f-642170702b05",
 							"name": "Auth Request (Mock)",
 							"originalRequest": {
 								"method": "POST",
@@ -317,15 +293,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{mock_url}}/auth",
-									"host": [
-										"{{mock_url}}"
-									],
-									"path": [
-										"auth"
-									]
-								}
+								"url": "{{mock_url}}/auth"
 							},
 							"status": "OK",
 							"code": 200,
@@ -365,15 +333,18 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "{\n    \"token\": \"abc123\"\n}"
 						}
 					]
 				}
 			],
+			"id": "1da5bfde-c94b-419c-ba38-e6003e23e137",
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
+						"id": "9d994d07-32bd-4fc9-b23e-bede7e56bce7",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -383,6 +354,7 @@
 				{
 					"listen": "test",
 					"script": {
+						"id": "e93b5291-e8e7-47b9-8f14-8c277272ca81",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -400,6 +372,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "27f27d14-eb1f-48d9-9a38-919d8e755e06",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Pre-req ===`);\r",
 									"\r",
@@ -730,6 +703,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "1b640899-b6ad-4fcc-a594-23a313ea5788",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Tests ===`);\r",
 									"\r",
@@ -943,7 +917,9 @@
 							}
 						}
 					],
+					"id": "4cf1738f-a7a5-482c-951e-49801ac11fa5",
 					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
 						"disabledSystemHeaders": {
 							"accept": true
 						}
@@ -966,16 +942,12 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{create_booking_json_url}}",
-							"host": [
-								"{{create_booking_json_url}}"
-							]
-						},
+						"url": "{{create_booking_json_url}}",
 						"description": "Sends a create booking request using JSON format. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Booking-CreateBooking)."
 					},
 					"response": [
 						{
+							"id": "9fc022b3-ab8b-46a7-b57d-e44a24c3288a",
 							"name": "Create Booking - JSON",
 							"originalRequest": {
 								"method": "POST",
@@ -995,18 +967,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "https://restful-booker.herokuapp.com/booking",
-									"protocol": "https",
-									"host": [
-										"restful-booker",
-										"herokuapp",
-										"com"
-									],
-									"path": [
-										"booking"
-									]
-								}
+								"url": "https://restful-booker.herokuapp.com/booking"
 							},
 							"status": "OK",
 							"code": 200,
@@ -1050,9 +1011,11 @@
 									"expires": "Invalid Date"
 								}
 							],
+							"responseTime": null,
 							"body": "{\n    \"bookingid\": {{$randomInt}},\n    \"booking\": {\n        \"firstname\": \"{{firstname}}\",\n        \"lastname\": \"{{lastname}}\",\n        \"totalprice\": {{totalprice}},\n        \"depositpaid\": {{depositpaid}},\n        \"bookingdates\": {\n            \"checkin\": \"{{checkin}}\",\n            \"checkout\": \"{{checkout}}\"\n        },\n        \"additionalneeds\": \"{{additionalneeds}}\"\n    }\n}\n"
 						},
 						{
+							"id": "5ec9c664-1774-417a-bff1-b310a0b2b38c",
 							"name": "Create Booking - JSON (Mock)",
 							"originalRequest": {
 								"method": "POST",
@@ -1072,21 +1035,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "https://1b109d3c-87dc-48fc-8ac7-c29772894eb6.mock.pstmn.io/mock/json/booking",
-									"protocol": "https",
-									"host": [
-										"1b109d3c-87dc-48fc-8ac7-c29772894eb6",
-										"mock",
-										"pstmn",
-										"io"
-									],
-									"path": [
-										"mock",
-										"json",
-										"booking"
-									]
-								}
+								"url": "https://1b109d3c-87dc-48fc-8ac7-c29772894eb6.mock.pstmn.io/mock/json/booking"
 							},
 							"status": "OK",
 							"code": 200,
@@ -1130,6 +1079,7 @@
 									"expires": "Invalid Date"
 								}
 							],
+							"responseTime": null,
 							"body": "{\n    \"bookingid\": {{$randomInt}},\n    \"booking\": {\n        \"firstname\": \"{{firstname}}\",\n        \"lastname\": \"{{lastname}}\",\n        \"totalprice\": {{totalprice}},\n        \"depositpaid\": {{depositpaid}},\n        \"bookingdates\": {\n            \"checkin\": \"{{checkin}}\",\n            \"checkout\": \"{{checkout}}\"\n        },\n        \"additionalneeds\": \"{{additionalneeds}}\"\n    }\n}\n"
 						}
 					]
@@ -1140,6 +1090,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "d4811dd6-2983-4b84-8076-7512130c7d38",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Tests ===`);\r",
 									"\r",
@@ -1282,6 +1233,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "e704629f-58de-4b90-b7ca-5ed396091cb9",
 								"exec": [
 									""
 								],
@@ -1289,7 +1241,9 @@
 							}
 						}
 					],
+					"id": "7c1a7869-645c-4d64-b648-d7fd2f32aef5",
 					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
 						"disabledSystemHeaders": {
 							"accept": true
 						}
@@ -1318,6 +1272,7 @@
 							],
 							"variable": [
 								{
+									"id": "5e92a8dc-7b22-488b-a81d-eb685e5436fb",
 									"key": "id",
 									"value": "{{bookingid}}",
 									"description": "Booking ID"
@@ -1328,6 +1283,7 @@
 					},
 					"response": [
 						{
+							"id": "1106d3d9-e0c2-4f50-8611-ec797951cb96",
 							"name": "Get Booking - JSON",
 							"originalRequest": {
 								"method": "GET",
@@ -1393,9 +1349,11 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "{\n    \"firstname\" : \"{{firstname}}\",\n    \"lastname\" : \"{{lastname}}\",\n    \"totalprice\" : {{totalprice}},\n    \"depositpaid\" : {{depositpaid}},\n    \"bookingdates\" : {\n        \"checkin\" : \"{{checkin}}\",\n        \"checkout\" : \"{{checkout}}\"\n    },\n    \"additionalneeds\" : \"{{additionalneeds}}\"\n}"
 						},
 						{
+							"id": "4b3c6877-1095-47b1-bcd9-6e2eb83c41ba",
 							"name": "Get Booking - JSON (Mock)",
 							"originalRequest": {
 								"method": "GET",
@@ -1463,6 +1421,7 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "{\n    \"firstname\" : \"{{firstname}}\",\n    \"lastname\" : \"{{lastname}}\",\n    \"totalprice\" : {{totalprice}},\n    \"depositpaid\" : {{depositpaid}},\n    \"bookingdates\" : {\n        \"checkin\" : \"{{checkin}}\",\n        \"checkout\" : \"{{checkout}}\"\n    },\n    \"additionalneeds\" : \"{{additionalneeds}}\"\n}"
 						}
 					]
@@ -1473,6 +1432,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "45fa1a06-44d2-486b-82aa-2687a1b23005",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Pre-req ===`);\r",
 									"\r",
@@ -1793,6 +1753,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "c01e7164-5219-42ec-bcff-34af3d92f85d",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Tests ===`);\r",
 									"\r",
@@ -1935,7 +1896,9 @@
 							}
 						}
 					],
+					"id": "87c8f6da-40ea-49a6-918a-1250a746ddbc",
 					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
 						"disabledSystemHeaders": {
 							"accept": true
 						}
@@ -1984,6 +1947,7 @@
 					},
 					"response": [
 						{
+							"id": "2b193200-de2a-4d8f-88b2-419a6c203723",
 							"name": "Update Booking - JSON",
 							"originalRequest": {
 								"method": "PUT",
@@ -2069,9 +2033,11 @@
 									"expires": "Invalid Date"
 								}
 							],
+							"responseTime": null,
 							"body": "{\n    \"firstname\" : \"{{firstname}}\",\n    \"lastname\" : \"{{lastname}}\",\n    \"totalprice\" : {{totalprice}},\n    \"depositpaid\" : {{depositpaid}},\n    \"bookingdates\" : {\n        \"checkin\" : \"{{checkin}}\",\n        \"checkout\" : \"{{checkout}}\"\n    },\n    \"additionalneeds\" : \"{{additionalneeds}}\"\n}"
 						},
 						{
+							"id": "1548412b-6d1c-47df-b28f-63cd4e4e7905",
 							"name": "Update Booking - JSON (Mock)",
 							"originalRequest": {
 								"method": "PUT",
@@ -2160,6 +2126,7 @@
 									"expires": "Invalid Date"
 								}
 							],
+							"responseTime": null,
 							"body": "{\n    \"firstname\" : \"{{firstname}}\",\n    \"lastname\" : \"{{lastname}}\",\n    \"totalprice\" : {{totalprice}},\n    \"depositpaid\" : {{depositpaid}},\n    \"bookingdates\" : {\n        \"checkin\" : \"{{checkin}}\",\n        \"checkout\" : \"{{checkout}}\"\n    },\n    \"additionalneeds\" : \"{{additionalneeds}}\"\n}"
 						}
 					]
@@ -2170,6 +2137,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "45fa1a06-44d2-486b-82aa-2687a1b23005",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Pre-req ===`);\r",
 									"\r",
@@ -2463,6 +2431,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "c01e7164-5219-42ec-bcff-34af3d92f85d",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Tests ===`);\r",
 									"\r",
@@ -2609,7 +2578,9 @@
 							}
 						}
 					],
+					"id": "37b8f042-2962-4ec8-a332-e6da94f9d418",
 					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
 						"disabledSystemHeaders": {
 							"accept": true
 						}
@@ -2617,18 +2588,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "{{password}}",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "{{username}}",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "{{password}}",
+								"username": "{{username}}"
+							}
 						},
 						"method": "PATCH",
 						"header": [
@@ -2657,6 +2620,7 @@
 							],
 							"variable": [
 								{
+									"id": "2efcb5b6-fbf7-4063-b6f9-3cb420ef6a84",
 									"key": "id",
 									"value": "{{bookingid}}",
 									"description": "Booking ID of booking record to update"
@@ -2667,6 +2631,7 @@
 					},
 					"response": [
 						{
+							"id": "7940e67f-66a9-4ea3-b29d-b32963ea8aac",
 							"name": "Partial Update Booking - JSON",
 							"originalRequest": {
 								"method": "PATCH",
@@ -2746,9 +2711,11 @@
 									"expires": "Invalid Date"
 								}
 							],
+							"responseTime": null,
 							"body": "{\n    \"firstname\" : \"{{firstname}}\",\n    \"lastname\" : \"{{lastname}}\",\n    \"totalprice\" : {{totalprice}},\n    \"depositpaid\" : {{depositpaid}},\n    \"bookingdates\" : {\n        \"checkin\" : \"{{checkin}}\",\n        \"checkout\" : \"{{checkout}}\"\n    },\n    \"additionalneeds\" : \"{{additionalneeds}}\"\n}"
 						},
 						{
+							"id": "b15e40d0-e62a-4445-b989-e2f95014112f",
 							"name": "Partial Update Booking - JSON (Mock)",
 							"originalRequest": {
 								"method": "PATCH",
@@ -2831,11 +2798,13 @@
 									"expires": "Invalid Date"
 								}
 							],
+							"responseTime": null,
 							"body": "{\n    \"firstname\" : \"{{firstname}}\",\n    \"lastname\" : \"{{lastname}}\",\n    \"totalprice\" : {{totalprice}},\n    \"depositpaid\" : {{depositpaid}},\n    \"bookingdates\" : {\n        \"checkin\" : \"{{checkin}}\",\n        \"checkout\" : \"{{checkout}}\"\n    },\n    \"additionalneeds\" : \"{{additionalneeds}}\"\n}"
 						}
 					]
 				}
-			]
+			],
+			"id": "1ec20f36-2098-4b53-a4cb-289082f732f4"
 		},
 		{
 			"name": "Tests using XML format",
@@ -2846,6 +2815,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "3e5f1e93-0599-4a5f-86f5-2fa7dfef53e5",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Tests ===`);\r",
 									"\r",
@@ -3036,6 +3006,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "2ba29eb5-80d9-4acf-9802-02d8efe546ad",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Pre-req ===`);\r",
 									"\r",
@@ -3362,7 +3333,9 @@
 							}
 						}
 					],
+					"id": "1b61dbac-2df2-4c38-8efc-7c6d1328e603",
 					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
 						"disabledSystemHeaders": {
 							"accept": true,
 							"content-type": true
@@ -3391,16 +3364,12 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{create_booking_xml_url}}",
-							"host": [
-								"{{create_booking_xml_url}}"
-							]
-						},
+						"url": "{{create_booking_xml_url}}",
 						"description": "Sends a create booking request using XML format. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Booking-CreateBooking)."
 					},
 					"response": [
 						{
+							"id": "7346bc1f-0a9f-4014-b49b-bb52fe326523",
 							"name": "Create Booking - XML",
 							"originalRequest": {
 								"method": "POST",
@@ -3425,15 +3394,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{prod_url}}/booking",
-									"host": [
-										"{{prod_url}}"
-									],
-									"path": [
-										"booking"
-									]
-								}
+								"url": "{{prod_url}}/booking"
 							},
 							"status": "OK",
 							"code": 200,
@@ -3477,9 +3438,11 @@
 									"expires": "Invalid Date"
 								}
 							],
+							"responseTime": null,
 							"body": "<?xml version='1.0'?>\n<created-booking>\n    <bookingid>{{$randomInt}}</bookingid>\n    <booking>\n        <firstname>{{firstname}}</firstname>\n        <lastname>{{lastname}}</lastname>\n        <totalprice>{{totalprice}}</totalprice>\n        <depositpaid>{{depositpaid}}</depositpaid>\n        <bookingdates>\n            <checkin>{{checkin}}</checkin>\n            <checkout>{{checkout}}</checkout>\n        </bookingdates>\n        <additionalneeds>{{additionalneeds}}</additionalneeds>\n    </booking>\n</created-booking>"
 						},
 						{
+							"id": "c613b8a4-a6b7-49d8-94c4-77aa67f10ac3",
 							"name": "Create Booking - XML (Mock)",
 							"originalRequest": {
 								"method": "POST",
@@ -3504,17 +3467,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{mock_url}}/mock/xml/booking",
-									"host": [
-										"{{mock_url}}"
-									],
-									"path": [
-										"mock",
-										"xml",
-										"booking"
-									]
-								}
+								"url": "{{mock_url}}/mock/xml/booking"
 							},
 							"status": "OK",
 							"code": 200,
@@ -3558,6 +3511,7 @@
 									"expires": "Invalid Date"
 								}
 							],
+							"responseTime": null,
 							"body": "<?xml version='1.0'?>\n<created-booking>\n    <bookingid>{{$randomInt}}</bookingid>\n    <booking>\n        <firstname>{{firstname}}</firstname>\n        <lastname>{{lastname}}</lastname>\n        <totalprice>{{totalprice}}</totalprice>\n        <depositpaid>{{depositpaid}}</depositpaid>\n        <bookingdates>\n            <checkin>{{checkin}}</checkin>\n            <checkout>{{checkout}}</checkout>\n        </bookingdates>\n        <additionalneeds>{{additionalneeds}}</additionalneeds>\n    </booking>\n</created-booking>"
 						}
 					]
@@ -3568,6 +3522,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "67f51642-4e61-4756-b2f0-addbbbd8feeb",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Tests ===`);\r",
 									"\r",
@@ -3741,6 +3696,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "ed225f08-f878-45fd-b7bb-7d7915a9b6c1",
 								"exec": [
 									""
 								],
@@ -3748,7 +3704,9 @@
 							}
 						}
 					],
+					"id": "164f444a-1030-4c2c-8200-64a3730b601b",
 					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
 						"disabledSystemHeaders": {
 							"accept": true
 						}
@@ -3772,6 +3730,7 @@
 							],
 							"variable": [
 								{
+									"id": "e5c90f22-3c81-40c6-8184-40b5717620ae",
 									"key": "id",
 									"value": "{{bookingid}}",
 									"description": "Booking ID"
@@ -3782,6 +3741,7 @@
 					},
 					"response": [
 						{
+							"id": "3e19182b-412e-4382-990f-092b511ab37d",
 							"name": "Get Booking - XML",
 							"originalRequest": {
 								"method": "GET",
@@ -3852,9 +3812,11 @@
 									"expires": "Invalid Date"
 								}
 							],
+							"responseTime": null,
 							"body": "<?xml version='1.0'?>\n<booking>\n    <firstname>{{firstname}}</firstname>\n    <lastname>{{lastname}}</lastname>\n    <totalprice>{{totalprice}}</totalprice>\n    <depositpaid>{{depositpaid}}</depositpaid>\n    <bookingdates>\n        <checkin>{{checkin}}</checkin>\n        <checkout>{{checkout}}</checkout>\n    </bookingdates>\n    <additionalneeds>{{additionalneeds}}</additionalneeds>\n</booking>"
 						},
 						{
+							"id": "f702492f-d3b2-408d-8ae5-5a6ab122b0e9",
 							"name": "Get Booking - XML (Mock)",
 							"originalRequest": {
 								"method": "GET",
@@ -3927,6 +3889,7 @@
 									"expires": "Invalid Date"
 								}
 							],
+							"responseTime": null,
 							"body": "<?xml version='1.0'?>\n<booking>\n    <firstname>{{firstname}}</firstname>\n    <lastname>{{lastname}}</lastname>\n    <totalprice>{{totalprice}}</totalprice>\n    <depositpaid>{{depositpaid}}</depositpaid>\n    <bookingdates>\n        <checkin>{{checkin}}</checkin>\n        <checkout>{{checkout}}</checkout>\n    </bookingdates>\n    <additionalneeds>{{additionalneeds}}</additionalneeds>\n</booking>"
 						}
 					]
@@ -3937,6 +3900,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "3e5f1e93-0599-4a5f-86f5-2fa7dfef53e5",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Tests ===`);\r",
 									"\r",
@@ -4107,6 +4071,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "2ba29eb5-80d9-4acf-9802-02d8efe546ad",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Pre-req ===`);\r",
 									"\r",
@@ -4408,7 +4373,9 @@
 							}
 						}
 					],
+					"id": "06b26fd0-b88a-4856-8d32-857760238aea",
 					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
 						"disabledSystemHeaders": {
 							"accept": true,
 							"content-type": true
@@ -4417,18 +4384,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "{{password}}",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "{{username}}",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "{{password}}",
+								"username": "{{username}}"
+							}
 						},
 						"method": "PUT",
 						"header": [
@@ -4462,6 +4421,7 @@
 							],
 							"variable": [
 								{
+									"id": "16b6e13a-2c02-48cb-a9e6-d84f50fa0cdb",
 									"key": "id",
 									"value": "{{bookingid}}",
 									"description": "Booking ID of booking record to update"
@@ -4472,6 +4432,7 @@
 					},
 					"response": [
 						{
+							"id": "45694822-97a8-4509-aad4-e613f7df8d10",
 							"name": "Update Booking - XML",
 							"originalRequest": {
 								"method": "PUT",
@@ -4556,9 +4517,11 @@
 									"expires": "Invalid Date"
 								}
 							],
+							"responseTime": null,
 							"body": "<?xml version='1.0'?>\n<booking>\n    <firstname>{{firstname}}</firstname>\n    <lastname>{{lastname}}</lastname>\n    <totalprice>{{totalprice}}</totalprice>\n    <depositpaid>{{depositpaid}}</depositpaid>\n    <bookingdates>\n        <checkin>{{checkin}}</checkin>\n        <checkout>{{checkout}}</checkout>\n    </bookingdates>\n    <additionalneeds>{{additionalneeds}}</additionalneeds>\n</booking>"
 						},
 						{
+							"id": "c3bb605f-9218-440d-86fe-28b401479a02",
 							"name": "Update Booking - XML (Mock)",
 							"originalRequest": {
 								"method": "PUT",
@@ -4646,6 +4609,7 @@
 									"expires": "Invalid Date"
 								}
 							],
+							"responseTime": null,
 							"body": "<?xml version='1.0'?>\n<booking>\n    <firstname>{{firstname}}</firstname>\n    <lastname>{{lastname}}</lastname>\n    <totalprice>{{totalprice}}</totalprice>\n    <depositpaid>{{depositpaid}}</depositpaid>\n    <bookingdates>\n        <checkin>{{checkin}}</checkin>\n        <checkout>{{checkout}}</checkout>\n    </bookingdates>\n    <additionalneeds>{{additionalneeds}}</additionalneeds>\n</booking>"
 						}
 					]
@@ -4656,6 +4620,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "3e5f1e93-0599-4a5f-86f5-2fa7dfef53e5",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Tests ===`);\r",
 									"\r",
@@ -4830,6 +4795,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "2ba29eb5-80d9-4acf-9802-02d8efe546ad",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Pre-req ===`);\r",
 									"\r",
@@ -5108,7 +5074,9 @@
 							}
 						}
 					],
+					"id": "8033fe57-9222-4ec6-84f1-e36a0c8f0193",
 					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
 						"disabledSystemHeaders": {
 							"accept": true,
 							"content-type": true
@@ -5153,6 +5121,7 @@
 							],
 							"variable": [
 								{
+									"id": "c6e0e9e7-084f-425d-b7a6-83aa6dd023e5",
 									"key": "id",
 									"value": "{{bookingid}}",
 									"description": "Booking ID of booking record to update"
@@ -5163,6 +5132,7 @@
 					},
 					"response": [
 						{
+							"id": "0e548968-7897-429e-9224-0e8838499ec5",
 							"name": "Partial Update Booking - XML",
 							"originalRequest": {
 								"method": "PATCH",
@@ -5249,9 +5219,11 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "<?xml version='1.0'?>\n<booking>\n    <firstname>{{firstname}}</firstname>\n    <lastname>{{lastname}}</lastname>\n    <totalprice>{{totalprice}}</totalprice>\n    <depositpaid>{{depositpaid}}</depositpaid>\n    <bookingdates>\n        <checkin>{{checkin}}</checkin>\n        <checkout>{{checkout}}</checkout>\n    </bookingdates>\n    <additionalneeds>{{additionalneeds}}</additionalneeds>\n</booking>"
 						},
 						{
+							"id": "3932061f-0d35-4dfd-8038-6a4154e29761",
 							"name": "Partial Update Booking - XML (Mock)",
 							"originalRequest": {
 								"method": "PATCH",
@@ -5341,11 +5313,13 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "<?xml version='1.0'?>\n<booking>\n    <firstname>{{firstname}}</firstname>\n    <lastname>{{lastname}}</lastname>\n    <totalprice>{{totalprice}}</totalprice>\n    <depositpaid>{{depositpaid}}</depositpaid>\n    <bookingdates>\n        <checkin>{{checkin}}</checkin>\n        <checkout>{{checkout}}</checkout>\n    </bookingdates>\n    <additionalneeds>{{additionalneeds}}</additionalneeds>\n</booking>"
 						}
 					]
 				}
-			]
+			],
+			"id": "3142c975-5fb3-4c19-83e7-c0d450aa0af3"
 		},
 		{
 			"name": "Tests using URL encoded format",
@@ -5356,6 +5330,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "b7b62c57-0642-43d0-a373-ec714997a1bb",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Pre-req ===`);\r",
 									"\r",
@@ -5683,6 +5658,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "385f4e19-fd9d-4d43-989a-1f29a4f5a5d6",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Tests ===`);\r",
 									"\r",
@@ -5848,7 +5824,9 @@
 							}
 						}
 					],
+					"id": "67c03d89-48bb-4cb0-9216-264c72075238",
 					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
 						"disabledSystemHeaders": {
 							"accept": true
 						}
@@ -5909,16 +5887,12 @@
 								}
 							]
 						},
-						"url": {
-							"raw": "{{create_booking_urlencoded_url}}",
-							"host": [
-								"{{create_booking_urlencoded_url}}"
-							]
-						},
+						"url": "{{create_booking_urlencoded_url}}",
 						"description": "Sends a create booking request using URL encoded format. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Booking-CreateBooking)."
 					},
 					"response": [
 						{
+							"id": "8871d9fd-250d-4437-ae93-0a74408aecdd",
 							"name": "Create Booking - URL Encoded",
 							"originalRequest": {
 								"method": "POST",
@@ -5969,15 +5943,7 @@
 										}
 									]
 								},
-								"url": {
-									"raw": "{{prod_url}}/booking",
-									"host": [
-										"{{prod_url}}"
-									],
-									"path": [
-										"booking"
-									]
-								}
+								"url": "{{prod_url}}/booking"
 							},
 							"status": "OK",
 							"code": 200,
@@ -6017,9 +5983,11 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "bookingid={{$randomInt}}&booking%5Bfirstname%5D={{firstname}}&booking%5Blastname%5D={{lastname}}&booking%5Btotalprice%5D={{totalprice}}&booking%5Bdepositpaid%5D={{depositpaid}}&booking%5Bbookingdates%5D%5Bcheckin%5D={{checkin}}&booking%5Bbookingdates%5D%5Bcheckout%5D={{checkout}}&booking%5Badditionalneeds%5D={{additionalneeds}}"
 						},
 						{
+							"id": "9f961b3f-6235-4ac2-bece-e465abb3d05d",
 							"name": "Create Booking - URL Encoded (Mock)",
 							"originalRequest": {
 								"method": "POST",
@@ -6070,17 +6038,7 @@
 										}
 									]
 								},
-								"url": {
-									"raw": "{{mock_url}}/mock/urlencoded/booking",
-									"host": [
-										"{{mock_url}}"
-									],
-									"path": [
-										"mock",
-										"urlencoded",
-										"booking"
-									]
-								}
+								"url": "{{mock_url}}/mock/urlencoded/booking"
 							},
 							"status": "OK",
 							"code": 200,
@@ -6120,6 +6078,7 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "bookingid={{$randomInt}}&booking%5Bfirstname%5D={{firstname}}&booking%5Blastname%5D={{lastname}}&booking%5Btotalprice%5D={{totalprice}}&booking%5Bdepositpaid%5D={{depositpaid}}&booking%5Bbookingdates%5D%5Bcheckin%5D={{checkin}}&booking%5Bbookingdates%5D%5Bcheckout%5D={{checkout}}&booking%5Badditionalneeds%5D={{additionalneeds}}"
 						}
 					]
@@ -6130,6 +6089,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "b7b62c57-0642-43d0-a373-ec714997a1bb",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Pre-req ===`);\r",
 									"\r",
@@ -6431,6 +6391,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "385f4e19-fd9d-4d43-989a-1f29a4f5a5d6",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Tests ===`);\r",
 									"\r",
@@ -6584,7 +6545,9 @@
 							}
 						}
 					],
+					"id": "9bb8e1aa-ddd3-4794-8652-f70c3f7d06ff",
 					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
 						"disabledSystemHeaders": {
 							"accept": true
 						}
@@ -6661,6 +6624,7 @@
 							],
 							"variable": [
 								{
+									"id": "bf49746e-9780-4bde-bb86-1dc3c89442d5",
 									"key": "id",
 									"value": "{{bookingid}}",
 									"description": "Booking ID of the booking record to update"
@@ -6671,6 +6635,7 @@
 					},
 					"response": [
 						{
+							"id": "bf494211-a876-41aa-9446-04de5b5a280f",
 							"name": "Update Booking - URL Encoded",
 							"originalRequest": {
 								"method": "PUT",
@@ -6794,9 +6759,11 @@
 									"expires": "Invalid Date"
 								}
 							],
+							"responseTime": null,
 							"body": "firstname={{firstname}}&lastname={{lastname}}&totalprice={{totalprice}}&depositpaid={{depositpaid}}&bookingdates%5Bcheckin%5D={{checkin}}&bookingdates%5Bcheckout%5D={{checkout}}&additionalneeds={{additionalneeds}}"
 						},
 						{
+							"id": "c7f574f2-79f8-43a9-94f1-bbd78a09856c",
 							"name": "Update Booking - URL Encoded (Mock)",
 							"originalRequest": {
 								"method": "PUT",
@@ -6923,6 +6890,7 @@
 									"expires": "Invalid Date"
 								}
 							],
+							"responseTime": null,
 							"body": "firstname={{firstname}}&lastname={{lastname}}&totalprice={{totalprice}}&depositpaid={{depositpaid}}&bookingdates%5Bcheckin%5D={{checkin}}&bookingdates%5Bcheckout%5D={{checkout}}&additionalneeds={{additionalneeds}}"
 						}
 					]
@@ -6933,6 +6901,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "b7b62c57-0642-43d0-a373-ec714997a1bb",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Pre-req ===`);\r",
 									"\r",
@@ -7208,6 +7177,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "385f4e19-fd9d-4d43-989a-1f29a4f5a5d6",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Tests ===`);\r",
 									"\r",
@@ -7359,7 +7329,9 @@
 							}
 						}
 					],
+					"id": "bd6f7208-483f-4cdc-a564-7bf292a06cb1",
 					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
 						"disabledSystemHeaders": {
 							"accept": true
 						}
@@ -7367,18 +7339,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "{{password}}",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "{{username}}",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "{{password}}",
+								"username": "{{username}}"
+							}
 						},
 						"method": "PATCH",
 						"header": [
@@ -7450,6 +7414,7 @@
 							],
 							"variable": [
 								{
+									"id": "14382d8e-78df-4776-85b9-30f208dddae8",
 									"key": "id",
 									"value": "{{bookingid}}",
 									"description": "Booking ID of the booking record to update"
@@ -7460,6 +7425,7 @@
 					},
 					"response": [
 						{
+							"id": "88f59b3a-4338-452f-93f4-dd1489b7af62",
 							"name": "Partial Update Booking - URL Encoded",
 							"originalRequest": {
 								"method": "PATCH",
@@ -7582,9 +7548,11 @@
 									"expires": "Invalid Date"
 								}
 							],
+							"responseTime": null,
 							"body": "firstname={{firstname}}&lastname={{lastname}}&totalprice={{totalprice}}&depositpaid={{depositpaid}}&bookingdates%5Bcheckin%5D={{checkin}}&bookingdates%5Bcheckout%5D={{checkout}}&additionalneeds={{additionalneeds}}"
 						},
 						{
+							"id": "b20372e9-4a68-4f37-ad81-28388269407a",
 							"name": "Partial Update Booking - URL Encoded (Mock)",
 							"originalRequest": {
 								"method": "PATCH",
@@ -7710,11 +7678,13 @@
 									"expires": "Invalid Date"
 								}
 							],
+							"responseTime": null,
 							"body": "firstname={{firstname}}&lastname={{lastname}}&totalprice={{totalprice}}&depositpaid={{depositpaid}}&bookingdates%5Bcheckin%5D={{checkin}}&bookingdates%5Bcheckout%5D={{checkout}}&additionalneeds={{additionalneeds}}"
 						}
 					]
 				}
-			]
+			],
+			"id": "0b1e051b-707a-45ba-b96f-b409f435b3a1"
 		},
 		{
 			"name": "Other Common Tests",
@@ -7725,6 +7695,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "af0c7399-0eb2-4f9e-82f2-ab71cf2e9187",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Tests ===`);\r",
 									"\r",
@@ -7799,32 +7770,24 @@
 							}
 						}
 					],
+					"id": "2b47ea90-e59c-4d56-9aea-80e69cd5643a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{get_booking_ids_url}}",
-							"host": [
-								"{{get_booking_ids_url}}"
-							]
-						},
+						"url": "{{get_booking_ids_url}}",
 						"description": "Sends a request to the Restfulbooker API to retrieve the list of all available booking IDs without any search filter. The response is expected to have an array of JSON object with a bookingid property. The API documentation can be found in this [link](https://restful-booker.herokuapp.com/apidoc/index.html#api-Booking-GetBookings)."
 					},
 					"response": [
 						{
+							"id": "610797b4-8bbb-4ef0-9dab-831b18bc2ea6",
 							"name": "Get Booking IDs - JSON",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{prod_url}}/booking",
-									"host": [
-										"{{prod_url}}"
-									],
-									"path": [
-										"booking"
-									]
-								}
+								"url": "{{prod_url}}/booking"
 							},
 							"status": "OK",
 							"code": 200,
@@ -7864,24 +7827,16 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "[\n    {\n        \"bookingid\": {{$randomInt}}\n    },\n    {\n        \"bookingid\": {{$randomInt}}\n    },\n    {\n        \"bookingid\": {{bookingid}}\n    }\n]"
 						},
 						{
+							"id": "893a3d07-cafd-4d96-9b87-327163573f06",
 							"name": "Get Booking IDs - JSON (Mock)",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{mock_url}}/mock/json/booking",
-									"host": [
-										"{{mock_url}}"
-									],
-									"path": [
-										"mock",
-										"json",
-										"booking"
-									]
-								}
+								"url": "{{mock_url}}/mock/json/booking"
 							},
 							"status": "OK",
 							"code": 200,
@@ -7921,6 +7876,7 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "[\n    {\n        \"bookingid\": {{$randomInt}}\n    },\n    {\n        \"bookingid\": {{$randomInt}}\n    },\n    {\n        \"bookingid\": {{bookingid}}\n    }\n]"
 						}
 					]
@@ -7931,6 +7887,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "0b3bcd11-6579-4d3d-8288-7f6fad1febb6",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Tests ===`);\r",
 									"\r",
@@ -8101,6 +8058,10 @@
 							}
 						}
 					],
+					"id": "bfaed88e-9f2e-4198-a4aa-b1935d252908",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -8126,6 +8087,7 @@
 					},
 					"response": [
 						{
+							"id": "34c1f77c-50a8-449c-8957-315a91d14283",
 							"name": "Get Booking IDs with Filter by Name- JSON",
 							"originalRequest": {
 								"method": "GET",
@@ -8190,9 +8152,11 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "[\n    {\n        \"bookingid\": {{bookingid}}\n    }\n]"
 						},
 						{
+							"id": "101c4c96-0a35-43f0-af5e-35df55e8fa48",
 							"name": "Get Booking IDs with Filter by Name- JSON (Mock)",
 							"originalRequest": {
 								"method": "GET",
@@ -8259,6 +8223,7 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "[\n    {\n        \"bookingid\": {{bookingid}}\n    }\n]"
 						}
 					]
@@ -8269,6 +8234,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "6ec6c146-382d-4d8e-abe0-f3cd0fd2e131",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Tests ===`);\r",
 									"\r",
@@ -8392,6 +8358,10 @@
 							}
 						}
 					],
+					"id": "60bd54d2-253d-43c9-a89c-6ed7d8672d16",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -8417,6 +8387,7 @@
 					},
 					"response": [
 						{
+							"id": "db5deae7-57d9-46e9-9f12-7afbf1819e36",
 							"name": "Get Booking IDs with Filter by Date- JSON",
 							"originalRequest": {
 								"method": "GET",
@@ -8481,9 +8452,11 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "[\n    {\n        \"bookingid\": {{bookingid}}\n    }\n]"
 						},
 						{
+							"id": "e65d03bc-3477-4286-bba9-d10e0b497437",
 							"name": "Get Booking IDs with Filter by Date- JSON (Mock)",
 							"originalRequest": {
 								"method": "GET",
@@ -8550,6 +8523,7 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "[\n    {\n        \"bookingid\": {{bookingid}}\n    }\n]"
 						}
 					]
@@ -8560,6 +8534,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "39af6bc2-18bc-4298-a162-cf4e03cae6b2",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Tests ===`);\r",
 									"\r",
@@ -8580,6 +8555,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "35497b22-8775-4b9e-a735-ea276a9dc1ec",
 								"exec": [
 									""
 								],
@@ -8587,7 +8563,9 @@
 							}
 						}
 					],
+					"id": "1a92523d-0a67-451e-bb61-23db431453a0",
 					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
 						"disabledSystemHeaders": {
 							"accept": true
 						}
@@ -8611,6 +8589,7 @@
 							],
 							"variable": [
 								{
+									"id": "4ec37569-0c26-4cde-849e-f396e758ba24",
 									"key": "id",
 									"value": "123456789",
 									"description": "Dummy booking id"
@@ -8621,6 +8600,7 @@
 					},
 					"response": [
 						{
+							"id": "b25699b4-f370-40c2-b0cd-748fe091a3d8",
 							"name": "Get Booking - Non Existent - JSON",
 							"originalRequest": {
 								"method": "GET",
@@ -8687,9 +8667,11 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "Not Found"
 						},
 						{
+							"id": "3af81c24-8f53-4ad1-8ab7-552074f8c576",
 							"name": "Get Booking - Non Existent - JSON (Mock)",
 							"originalRequest": {
 								"method": "GET",
@@ -8758,6 +8740,7 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "Not Found"
 						}
 					]
@@ -8768,6 +8751,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "d4811dd6-2983-4b84-8076-7512130c7d38",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Tests ===`);\r",
 									"\r",
@@ -8834,6 +8818,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "e704629f-58de-4b90-b7ca-5ed396091cb9",
 								"exec": [
 									""
 								],
@@ -8841,7 +8826,9 @@
 							}
 						}
 					],
+					"id": "2900f218-4792-45fa-916b-b1dae42f40f3",
 					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
 						"disabledSystemHeaders": {
 							"accept": true
 						}
@@ -8849,18 +8836,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "{{password}}",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "{{username}}",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "{{password}}",
+								"username": "{{username}}"
+							}
 						},
 						"method": "DELETE",
 						"header": [],
@@ -8874,6 +8853,7 @@
 							],
 							"variable": [
 								{
+									"id": "99e32c22-fc93-4212-86ef-ceff8b072494",
 									"key": "id",
 									"value": "{{bookingid}}",
 									"description": "Booking ID"
@@ -8884,6 +8864,7 @@
 					},
 					"response": [
 						{
+							"id": "9c45a1a4-4fc9-458f-ac59-c0ccd9097c0f",
 							"name": "Delete Booking - Success",
 							"originalRequest": {
 								"method": "DELETE",
@@ -8944,9 +8925,11 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "Created"
 						},
 						{
+							"id": "2362b3bf-f84a-4e86-99e5-8df6b4d71c88",
 							"name": "Delete Booking - Success (Mock)",
 							"originalRequest": {
 								"method": "DELETE",
@@ -9010,6 +8993,7 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "Created"
 						}
 					]
@@ -9020,6 +9004,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "d4811dd6-2983-4b84-8076-7512130c7d38",
 								"exec": [
 									"console.log(`=== ${pm.info.requestName}: START Tests ===`);\r",
 									"\r",
@@ -9042,6 +9027,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "e704629f-58de-4b90-b7ca-5ed396091cb9",
 								"exec": [
 									""
 								],
@@ -9049,7 +9035,9 @@
 							}
 						}
 					],
+					"id": "84486e42-eb88-48d4-a1b1-25688d0364fa",
 					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
 						"disabledSystemHeaders": {
 							"accept": true
 						}
@@ -9074,6 +9062,7 @@
 							],
 							"variable": [
 								{
+									"id": "0921fbe6-46ac-448f-bcbc-c69815e1414f",
 									"key": "id",
 									"value": "123456789",
 									"description": "Dummy Booking ID"
@@ -9084,6 +9073,7 @@
 					},
 					"response": [
 						{
+							"id": "1fe5972b-6044-4480-9663-3e6dd77374bd",
 							"name": "Delete Booking - Non Existent",
 							"originalRequest": {
 								"method": "DELETE",
@@ -9150,9 +9140,11 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "Method Not Allowed"
 						},
 						{
+							"id": "672700f1-c9dc-49e2-b551-edbd933e89c9",
 							"name": "Delete Booking - Non Existent (Mock)",
 							"originalRequest": {
 								"method": "DELETE",
@@ -9222,17 +9214,20 @@
 								}
 							],
 							"cookie": [],
+							"responseTime": null,
 							"body": "Method Not Allowed"
 						}
 					]
 				}
-			]
+			],
+			"id": "c4c6bd28-1948-498f-bf2a-ef96f017f28e"
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
+				"id": "cb3400a9-864a-4886-909b-e0b561d5b377",
 				"type": "text/javascript",
 				"exec": [
 					"/**",
@@ -9269,6 +9264,7 @@
 		{
 			"listen": "test",
 			"script": {
+				"id": "65576208-85a2-4442-ac9b-3cde1cff9c82",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -9278,103 +9274,123 @@
 	],
 	"variable": [
 		{
+			"id": "1e07fdee-8fd5-4578-9853-e80ef28bb3d0",
 			"key": "base_url",
 			"value": "https://restful-booker.herokuapp.com",
 			"type": "string",
 			"disabled": true
 		},
 		{
+			"id": "d798ba5b-f679-4c19-acf3-ea25b9d2c9d9",
 			"key": "token_key",
 			"value": "abc123",
 			"disabled": true
 		},
 		{
+			"id": "fbb90bcb-44fc-4dd3-9f39-b41ec02a540b",
 			"key": "firstname",
 			"value": "FirstName",
 			"type": "string",
 			"disabled": true
 		},
 		{
+			"id": "8d0489a3-43c5-440e-a4c2-4dce392b1937",
 			"key": "lastname",
 			"value": "LastName",
 			"type": "string",
 			"disabled": true
 		},
 		{
+			"id": "d4b5ce71-ed6b-4caa-abc8-1fd3205f660b",
 			"key": "totalprice",
 			"value": "1",
 			"disabled": true
 		},
 		{
+			"id": "66f7e3bf-4fcb-403d-b7ca-376d01925249",
 			"key": "depositpaid",
 			"value": "false",
 			"disabled": true
 		},
 		{
+			"id": "f2c95f13-74a9-4993-b95e-161305af2f62",
 			"key": "checkin",
 			"value": "2022-01-01",
 			"disabled": true
 		},
 		{
+			"id": "342fe460-a156-4077-9d0b-b05c531ba950",
 			"key": "checkout",
 			"value": "2022-12-31",
 			"disabled": true
 		},
 		{
+			"id": "a0763e04-85b9-46fa-933f-16b8280166d9",
 			"key": "additionalneeds",
 			"value": "AdditionalNeeds",
 			"disabled": true
 		},
 		{
+			"id": "5bb2f7e9-b73d-4752-b592-1b9f01d8a807",
 			"key": "bookingid",
 			"value": "1",
 			"disabled": true
 		},
 		{
+			"id": "c44a58e5-b84b-46e7-9421-8ef286ba12e0",
 			"key": "BOOKING_JSON_SCHEMA",
 			"value": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"bookingid\": {\n      \"type\": \"integer\"\n    },\n    \"booking\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"firstname\": {\n          \"type\": \"string\"\n        },\n        \"lastname\": {\n          \"type\": \"string\"\n        },\n        \"totalprice\": {\n          \"type\": \"integer\"\n        },\n        \"depositpaid\": {\n          \"type\": \"boolean\"\n        },\n        \"bookingdates\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"checkin\": {\n              \"type\": \"string\"\n            },\n            \"checkout\": {\n              \"type\": \"string\"\n            }\n          },\n          \"required\": [\n            \"checkin\",\n            \"checkout\"\n          ]\n        },\n        \"additionalneeds\": {\n          \"type\": \"string\"\n        }\n      },\n      \"required\": [\n        \"firstname\",\n        \"lastname\",\n        \"totalprice\",\n        \"depositpaid\",\n        \"bookingdates\",\n        \"additionalneeds\"\n      ]\n    }\n  },\n  \"required\": [\n    \"bookingid\",\n    \"booking\"\n  ]\n}"
 		},
 		{
+			"id": "2f28c5d1-5946-44b9-bf8d-bc2eb068fce2",
 			"key": "BOOKING_XML2JSON_SCHEMA",
 			"value": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"created-booking\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"bookingid\": {\n          \"type\": \"string\"\n        },\n        \"booking\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"firstname\": {\n              \"type\": \"string\"\n            },\n            \"lastname\": {\n              \"type\": \"string\"\n            },\n            \"totalprice\": {\n              \"type\": \"string\"\n            },\n            \"depositpaid\": {\n              \"type\": \"string\"\n            },\n            \"bookingdates\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"checkin\": {\n                  \"type\": \"string\"\n                },\n                \"checkout\": {\n                  \"type\": \"string\"\n                }\n              },\n              \"required\": [\n                \"checkin\",\n                \"checkout\"\n              ]\n            },\n            \"additionalneeds\": {\n              \"type\": \"string\"\n            }\n          },\n          \"required\": [\n            \"firstname\",\n            \"lastname\",\n            \"totalprice\",\n            \"depositpaid\",\n            \"bookingdates\",\n            \"additionalneeds\"\n          ]\n        }\n      },\n      \"required\": [\n        \"bookingid\",\n        \"booking\"\n      ]\n    }\n  },\n  \"required\": [\n    \"created-booking\"\n  ]\n}",
 			"type": "string"
 		},
 		{
+			"id": "5787fab8-4c26-48b1-a8cc-0e8ad5bbc4a5",
 			"key": "BOOKING_URLENCODED_SCHEMA",
 			"value": "{\n   \"type\": \"object\",\n  \"properties\": {\n    \"bookingid\": {\n      \"type\": \"string\"\n    },\n    \"booking[firstname]\": {\n      \"type\": \"string\"\n    },\n    \"booking[lastname]\": {\n      \"type\": \"string\"\n    },\n    \"booking[totalprice]\": {\n      \"type\": \"string\"\n    },\n    \"booking[depositpaid]\": {\n      \"type\": \"string\"\n    },\n    \"booking[bookingdates][checkin]\": {\n      \"type\": \"string\"\n    },\n    \"booking[bookingdates][checkout]\": {\n      \"type\": \"string\"\n    },\n    \"booking[additionalneeds]\": {\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"bookingid\",\n    \"booking[firstname]\",\n    \"booking[lastname]\",\n    \"booking[totalprice]\",\n    \"booking[depositpaid]\",\n    \"booking[bookingdates][checkin]\",\n    \"booking[bookingdates][checkout]\",\n    \"booking[additionalneeds]\"\n  ]\n}",
 			"type": "string"
 		},
 		{
+			"id": "bd4be1e0-5a63-4409-8417-4fd791bd2dee",
 			"key": "GET_BOOKING_JSON_SCHEMA",
 			"value": "{\n    \"$schema\": \"http://json-schema.org/draft-07/schema\",\n    \"$id\": \"http://example.com/example.json\",\n    \"type\": \"object\",\n    \"title\": \"The root schema\",\n    \"description\": \"The root schema comprises the entire JSON document.\",\n    \"examples\": [\n        {\n            \"firstname\": \"Miguel\",\n            \"lastname\": \"Rohan\",\n            \"totalprice\": 206,\n            \"depositpaid\": true,\n            \"bookingdates\": {\n                \"checkin\": \"2021-04-17\",\n                \"checkout\": \"2022-10-15\"\n            },\n            \"additionalneeds\": \"hard drive\"\n        }\n    ],\n    \"required\": [\n        \"firstname\",\n        \"lastname\",\n        \"totalprice\",\n        \"depositpaid\",\n        \"bookingdates\"\n    ],\n    \"properties\": {\n        \"firstname\": {\n            \"$id\": \"#/properties/firstname\",\n            \"type\": \"string\",\n            \"title\": \"The firstname schema\",\n            \"description\": \"The first name used when booking was created.\",\n            \"default\": \"\",\n            \"examples\": [\n                \"Miguel\"\n            ]\n        },\n        \"lastname\": {\n            \"$id\": \"#/properties/lastname\",\n            \"type\": \"string\",\n            \"title\": \"The lastname schema\",\n            \"description\": \"The last name used when booking was created.\",\n            \"default\": \"\",\n            \"examples\": [\n                \"Rohan\"\n            ]\n        },\n        \"totalprice\": {\n            \"$id\": \"#/properties/totalprice\",\n            \"type\": \"integer\",\n            \"title\": \"The totalprice schema\",\n            \"description\": \"The total price used when booking was created.\",\n            \"default\": 0,\n            \"examples\": [\n                206\n            ]\n        },\n        \"depositpaid\": {\n            \"$id\": \"#/properties/depositpaid\",\n            \"type\": \"boolean\",\n            \"title\": \"The depositpaid schema\",\n            \"description\": \"The deposit paid indicator used when booking was created.\",\n            \"default\": false,\n            \"examples\": [\n                true\n            ]\n        },\n        \"bookingdates\": {\n            \"$id\": \"#/properties/bookingdates\",\n            \"type\": \"object\",\n            \"title\": \"The bookingdates schema\",\n            \"description\": \"Check in and check out dates used when booking was created.\",\n            \"default\": {},\n            \"examples\": [\n                {\n                    \"checkin\": \"2021-04-17\",\n                    \"checkout\": \"2022-10-15\"\n                }\n            ],\n            \"required\": [\n                \"checkin\",\n                \"checkout\"\n            ],\n            \"properties\": {\n                \"checkin\": {\n                    \"$id\": \"#/properties/bookingdates/properties/checkin\",\n                    \"type\": \"string\",\n                    \"title\": \"The checkin schema\",\n                    \"description\": \"Check in date in YYYY-MM-DD format when booking was created.\",\n                    \"default\": \"\",\n                    \"examples\": [\n                        \"2021-04-17\"\n                    ]\n                },\n                \"checkout\": {\n                    \"$id\": \"#/properties/bookingdates/properties/checkout\",\n                    \"type\": \"string\",\n                    \"title\": \"The checkout schema\",\n                    \"description\": \"Check out date in YYYY-MM-DD format when booking was created.\",\n                    \"default\": \"\",\n                    \"examples\": [\n                        \"2022-10-15\"\n                    ]\n                }\n            },\n            \"additionalProperties\": false\n        },\n        \"additionalneeds\": {\n            \"$id\": \"#/properties/additionalneeds\",\n            \"type\": \"string\",\n            \"title\": \"The additionalneeds schema\",\n            \"description\": \"An optional property to indicate additional needs when booking was created.\",\n            \"default\": \"\",\n            \"examples\": [\n                \"hard drive\"\n            ]\n        }\n    },\n    \"additionalProperties\": false\n}",
 			"type": "string"
 		},
 		{
+			"id": "0f7d8310-8dd5-4f0e-84cf-5c94f95ef1f8",
 			"key": "GET_BOOKINGIDS_JSON_SCHEMA",
 			"value": "{\n    \"$schema\": \"http://json-schema.org/draft-07/schema\",\n    \"$id\": \"http://example.com/example.json\",\n    \"type\": \"array\",\n    \"uniqueItems\": true,\n    \"title\": \"The root schema\",\n    \"description\": \"The root schema comprises the entire JSON document.\",\n    \"default\": [],\n    \"examples\": [\n        [\n            {\n                \"bookingid\": 12\n            },\n            {\n                \"bookingid\": 23\n            }\n        ]\n    ],\n    \"additionalItems\": false,\n    \"items\": {\n        \"$id\": \"#/items\",\n        \"anyOf\": [\n            {\n                \"$id\": \"#/items/anyOf/0\",\n                \"type\": \"object\",\n                \"title\": \"The first anyOf schema\",\n                \"description\": \"A list of zero or more objects containing a single property of bookingid.\",\n                \"examples\": [\n                    {\n                        \"bookingid\": 12\n                    }\n                ],\n                \"required\": [\n                    \"bookingid\"\n                ],\n                \"properties\": {\n                    \"bookingid\": {\n                        \"$id\": \"#/items/anyOf/0/properties/bookingid\",\n                        \"type\": \"integer\",\n                        \"title\": \"The bookingid schema\",\n                        \"description\": \"bookingid property of type integer.\",\n                        \"examples\": [\n                            12\n                        ]\n                    }\n                },\n                \"additionalProperties\": false\n            }\n        ]\n    }\n}",
 			"type": "string"
 		},
 		{
+			"id": "279b1d26-9e31-4d08-9ab9-e81cdd075b02",
 			"key": "GET_BOOKING_XML_SCHEMA",
 			"value": "{\n    \"$schema\": \"http://json-schema.org/draft-07/schema\",\n    \"$id\": \"http://example.com/example.json\",\n    \"type\": \"object\",\n    \"title\": \"The root schema\",\n    \"description\": \"The root schema comprises the entire JSON document which was transformed from an XML document.\",\n    \"default\": {},\n    \"examples\": [\n        {\n            \"booking\": {\n                \"firstname\": \"Junior\",\n                \"lastname\": \"Collier\",\n                \"totalprice\": \"74\",\n                \"depositpaid\": \"true\",\n                \"bookingdates\": {\n                    \"checkin\": \"2021-08-15\",\n                    \"checkout\": \"2022-10-16\"\n                },\n                \"additionalneeds\": \"panel\"\n            }\n        }\n    ],\n    \"required\": [\n        \"booking\"\n    ],\n    \"properties\": {\n        \"booking\": {\n            \"$id\": \"#/properties/booking\",\n            \"default\": {},\n            \"description\": \"This object contains the properties of a booking record.\",\n            \"examples\": [\n                {\n                    \"firstname\": \"Junior\",\n                    \"lastname\": \"Collier\",\n                    \"totalprice\": \"74\",\n                    \"depositpaid\": \"true\",\n                    \"bookingdates\": {\n                        \"checkin\": \"2021-08-15\",\n                        \"checkout\": \"2022-10-16\"\n                    },\n                    \"additionalneeds\": \"panel\"\n                }\n            ],\n            \"required\": [\n                \"firstname\",\n                \"lastname\",\n                \"totalprice\",\n                \"depositpaid\",\n                \"bookingdates\",\n                \"additionalneeds\"\n            ],\n            \"title\": \"The booking schema\",\n            \"type\": \"object\",\n            \"properties\": {\n                \"firstname\": {\n                    \"$id\": \"#/properties/booking/properties/firstname\",\n                    \"default\": \"\",\n                    \"description\": \"First name of the booking record.\",\n                    \"examples\": [\n                        \"Junior\"\n                    ],\n                    \"title\": \"The firstname schema\",\n                    \"type\": \"string\"\n                },\n                \"lastname\": {\n                    \"$id\": \"#/properties/booking/properties/lastname\",\n                    \"default\": \"\",\n                    \"description\": \"The last name of the booking record.\",\n                    \"examples\": [\n                        \"Collier\"\n                    ],\n                    \"title\": \"The lastname schema\",\n                    \"type\": \"string\"\n                },\n                \"totalprice\": {\n                    \"$id\": \"#/properties/booking/properties/totalprice\",\n                    \"default\": \"\",\n                    \"description\": \"The total price paid for the booking.\",\n                    \"examples\": [\n                        \"74\"\n                    ],\n                    \"title\": \"The totalprice schema\",\n                    \"type\": \"string\"\n                },\n                \"depositpaid\": {\n                    \"$id\": \"#/properties/booking/properties/depositpaid\",\n                    \"default\": \"\",\n                    \"description\": \"true if a deposit was paid, othewise false.\",\n                    \"examples\": [\n                        \"true\"\n                    ],\n                    \"title\": \"The depositpaid schema\",\n                    \"type\": \"string\"\n                },\n                \"bookingdates\": {\n                    \"$id\": \"#/properties/booking/properties/bookingdates\",\n                    \"default\": {},\n                    \"description\": \"An object containing the checkin and checkout date properties.\",\n                    \"examples\": [\n                        {\n                            \"checkin\": \"2021-08-15\",\n                            \"checkout\": \"2022-10-16\"\n                        }\n                    ],\n                    \"required\": [\n                        \"checkin\",\n                        \"checkout\"\n                    ],\n                    \"title\": \"The bookingdates schema\",\n                    \"type\": \"object\",\n                    \"properties\": {\n                        \"checkin\": {\n                            \"$id\": \"#/properties/booking/properties/bookingdates/properties/checkin\",\n                            \"default\": \"\",\n                            \"description\": \"Indicates the check-in date in YYYY-MM-DD string format.\",\n                            \"examples\": [\n                                \"2021-08-15\"\n                            ],\n                            \"title\": \"The checkin schema\",\n                            \"type\": \"string\"\n                        },\n                        \"checkout\": {\n                            \"$id\": \"#/properties/booking/properties/bookingdates/properties/checkout\",\n                            \"default\": \"\",\n                            \"description\": \"Indicates the check-out date in YYYY-MM-DD string format.\",\n                            \"examples\": [\n                                \"2022-10-16\"\n                            ],\n                            \"title\": \"The checkout schema\",\n                            \"type\": \"string\"\n                        }\n                    },\n                    \"additionalProperties\": false\n                },\n                \"additionalneeds\": {\n                    \"$id\": \"#/properties/booking/properties/additionalneeds\",\n                    \"default\": \"\",\n                    \"description\": \"Indicates if there are any additional needs per the booking record.\",\n                    \"examples\": [\n                        \"panel\"\n                    ],\n                    \"title\": \"The additionalneeds schema\",\n                    \"type\": \"string\"\n                }\n            },\n            \"additionalProperties\": false\n        }\n    },\n    \"additionalProperties\": false\n}",
 			"type": "string"
 		},
 		{
+			"id": "b4046416-0bed-4539-adb5-0db101d55979",
 			"key": "utilityclass",
 			"value": ""
 		},
 		{
+			"id": "008522a5-3d79-48a9-a35a-dfc6be2735be",
 			"key": "UPDATE_BOOKING_URLENCODED_SCHEMA",
 			"value": "{\n    \"$schema\": \"http://json-schema.org/draft-07/schema\",\n    \"$id\": \"http://example.com/example.json\",\n    \"type\": \"object\",\n    \"title\": \"The root schema\",\n    \"description\": \"The root schema comprises the entire JSON document.\",\n    \"default\": {},\n    \"examples\": [\n        {\n            \"firstname\": \"Francis\",\n            \"lastname\": \"Kutch\",\n            \"totalprice\": \"790\",\n            \"depositpaid\": \"true\",\n            \"bookingdates[checkin]\": \"2021-08-10\",\n            \"bookingdates[checkout]\": \"2023-01-02\",\n            \"additionalneeds\": \"circuit\"\n        }\n    ],\n    \"required\": [\n        \"firstname\",\n        \"lastname\",\n        \"totalprice\",\n        \"depositpaid\",\n        \"bookingdates[checkin]\",\n        \"bookingdates[checkout]\",\n        \"additionalneeds\"\n    ],\n    \"properties\": {\n        \"firstname\": {\n            \"$id\": \"#/properties/firstname\",\n            \"type\": \"string\",\n            \"title\": \"The firstname schema\",\n            \"description\": \"An explanation about the purpose of this instance.\",\n            \"default\": \"\",\n            \"examples\": [\n                \"Francis\"\n            ]\n        },\n        \"lastname\": {\n            \"$id\": \"#/properties/lastname\",\n            \"type\": \"string\",\n            \"title\": \"The lastname schema\",\n            \"description\": \"An explanation about the purpose of this instance.\",\n            \"default\": \"\",\n            \"examples\": [\n                \"Kutch\"\n            ]\n        },\n        \"totalprice\": {\n            \"$id\": \"#/properties/totalprice\",\n            \"type\": \"string\",\n            \"title\": \"The totalprice schema\",\n            \"description\": \"An explanation about the purpose of this instance.\",\n            \"default\": \"\",\n            \"examples\": [\n                \"790\"\n            ]\n        },\n        \"depositpaid\": {\n            \"$id\": \"#/properties/depositpaid\",\n            \"type\": \"string\",\n            \"title\": \"The depositpaid schema\",\n            \"description\": \"An explanation about the purpose of this instance.\",\n            \"default\": \"\",\n            \"examples\": [\n                \"true\"\n            ]\n        },\n        \"bookingdates[checkin]\": {\n            \"$id\": \"#/properties/bookingdates%5Bcheckin%5D\",\n            \"type\": \"string\",\n            \"title\": \"The bookingdates[checkin] schema\",\n            \"description\": \"An explanation about the purpose of this instance.\",\n            \"default\": \"\",\n            \"examples\": [\n                \"2021-08-10\"\n            ]\n        },\n        \"bookingdates[checkout]\": {\n            \"$id\": \"#/properties/bookingdates%5Bcheckout%5D\",\n            \"type\": \"string\",\n            \"title\": \"The bookingdates[checkout] schema\",\n            \"description\": \"An explanation about the purpose of this instance.\",\n            \"default\": \"\",\n            \"examples\": [\n                \"2023-01-02\"\n            ]\n        },\n        \"additionalneeds\": {\n            \"$id\": \"#/properties/additionalneeds\",\n            \"default\": \"\",\n            \"description\": \"An explanation about the purpose of this instance.\",\n            \"examples\": [\n                \"circuit\"\n            ],\n            \"title\": \"The additionalneeds schema\",\n            \"type\": \"string\"\n        }\n    },\n    \"additionalProperties\": false\n}",
 			"type": "string"
 		},
 		{
+			"id": "825ae6bc-f1d4-4ded-8ba6-bd683ae3e4f0",
 			"key": "use_datafile",
 			"value": "",
 			"type": "string",
 			"disabled": true
 		},
 		{
+			"id": "481fcad4-e6e2-4530-934e-e54adb72f036",
 			"key": "postman_api_key",
 			"value": "",
 			"type": "string"
